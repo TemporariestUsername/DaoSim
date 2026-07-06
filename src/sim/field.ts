@@ -38,6 +38,7 @@ export class Field {
   readonly activity: Float32Array;
 
   private readonly nMean: [Float32Array, Float32Array, Float32Array, Float32Array, Float32Array];
+  private readonly pMean: Float32Array;
   private readonly dwRaw: [Float32Array, Float32Array, Float32Array, Float32Array, Float32Array];
   private rng: Rng;
   private seed: number;
@@ -72,6 +73,7 @@ export class Field {
       new Float32Array(n),
       new Float32Array(n),
     ];
+    this.pMean = new Float32Array(n);
     this.seed = seed;
     this.rng = mulberry32(seed);
     this.init();
@@ -109,34 +111,39 @@ export class Field {
   }
 
   tick(params: SimParams): void {
-    const { size, alpha, beta, mu, delta, eps, sigma, dt, conserve } = params;
+    const { size, alpha, beta, mu, delta, eps, sigma, dt, conserve, gamma, kappa, lambda, eta, aBar } = params;
     const offsets = this.neighborOffsets(params.neighborhood);
     const invCount = 1 / offsets.length;
-    const { w, p, nMean, dwRaw, activity, rng } = this;
+    const { w, p, v, nMean, pMean, dwRaw, activity, rng } = this;
     // scratch reused across cells — no per-cell allocation in the hot loop.
     const sums = this.scratchSums;
     const next = this.scratchNext;
 
-    // pass 1: neighborhood means over the torus, read-only over old w.
+    // pass 1: neighborhood means over the torus, read-only over old w and p.
     for (let y = 0; y < size; y++) {
       for (let x = 0; x < size; x++) {
         const idx = y * size + x;
         sums[0] = sums[1] = sums[2] = sums[3] = sums[4] = 0;
+        let pSum = 0;
         for (let o = 0; o < offsets.length; o++) {
           const [dx, dy] = offsets[o];
           const nx = (x + dx + size) % size;
           const ny = (y + dy + size) % size;
           const nIdx = ny * size + nx;
           for (let k = 0; k < NUM_ELEMENTS; k++) sums[k] += w[k][nIdx];
+          pSum += p[nIdx];
         }
         for (let k = 0; k < NUM_ELEMENTS; k++) nMean[k][idx] = sums[k] * invCount;
+        pMean[idx] = pSum * invCount;
       }
     }
 
-    // pass 2: reaction-diffusion + yin-yang tempo + noise floor + renormalize.
+    // pass 2: reaction-diffusion + yin-yang tempo + noise floor + renormalize,
+    // then the reversal-principle polarity oscillator (spec 1.3).
     const n = size * size;
     for (let idx = 0; idx < n; idx++) {
-      const rate = Math.pow(2, p[idx]); // p==0 in milestone 1 -> rate==1
+      const p0 = p[idx];
+      const rate = Math.pow(2, p0); // Yang speeds the cell up, Yin slows it down
       let activitySum = 0;
       for (let k = 0; k < NUM_ELEMENTS; k++) {
         const km1 = (k + 4) % NUM_ELEMENTS;
@@ -149,7 +156,8 @@ export class Field {
         dwRaw[k][idx] = raw;
         activitySum += Math.abs(raw);
       }
-      activity[idx] = activitySum / NUM_ELEMENTS;
+      const a = activitySum / NUM_ELEMENTS; // pre-rate, so it isn't self-amplifying
+      activity[idx] = a;
 
       let sum = 0;
       for (let k = 0; k < NUM_ELEMENTS; k++) {
@@ -168,6 +176,17 @@ export class Field {
       } else {
         for (let k = 0; k < NUM_ELEMENTS; k++) w[k][idx] = next[k];
       }
+
+      // an extreme contains the seed of its own reversal: activity above
+      // baseline pushes toward yang, a cubic restoring force makes the
+      // extremes unstable, and damping keeps it a relaxation oscillator.
+      const dv = (gamma * (a - aBar) + lambda * (pMean[idx] - p0) - kappa * p0 * p0 * p0 - eta * v[idx]) * dt;
+      const v1 = v[idx] + dv;
+      v[idx] = v1;
+      let p1 = p0 + v1 * dt;
+      if (p1 > 1) p1 = 1;
+      else if (p1 < -1) p1 = -1;
+      p[idx] = p1;
     }
 
     this.tickCount++;

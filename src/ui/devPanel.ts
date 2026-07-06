@@ -67,6 +67,52 @@ export function createDevPanel(
     });
   }
 
+  // boolean toggles (flow-visualization layer, spec 4)
+  for (const key of ['showParticles', 'showTrails'] as const) {
+    const row = document.createElement('label');
+    row.className = 'dev-row';
+    const name = document.createElement('span');
+    name.className = 'dev-row-name';
+    name.textContent = key;
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = params[key];
+    checkbox.addEventListener('change', () => {
+      params[key] = checkbox.checked;
+      callbacks.onChange();
+    });
+    row.appendChild(name);
+    row.appendChild(checkbox);
+    el.appendChild(row);
+    rows.push(() => {
+      checkbox.checked = params[key];
+    });
+  }
+
+  // particle count (rebuilds the particle system on change, unlike the live sliders above)
+  const particleCountRow = document.createElement('label');
+  particleCountRow.className = 'dev-row';
+  const particleCountName = document.createElement('span');
+  particleCountName.className = 'dev-row-name';
+  particleCountName.textContent = 'particleCount';
+  const particleCountInput = document.createElement('input');
+  particleCountInput.type = 'number';
+  particleCountInput.min = '0';
+  particleCountInput.step = '100';
+  particleCountInput.value = String(params.particleCount);
+  particleCountInput.addEventListener('change', () => {
+    const v = Math.max(0, parseInt(particleCountInput.value, 10) || 0);
+    params.particleCount = v;
+    particleCountInput.value = String(v);
+    callbacks.onChange();
+  });
+  particleCountRow.appendChild(particleCountName);
+  particleCountRow.appendChild(particleCountInput);
+  el.appendChild(particleCountRow);
+  rows.push(() => {
+    particleCountInput.value = String(params.particleCount);
+  });
+
   // conserve flag
   const conserveRow = document.createElement('label');
   conserveRow.className = 'dev-row';

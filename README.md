@@ -5,9 +5,15 @@ another across a torus grid, Yin and Yang set the local tempo, and the
 whole thing is designed to never sit still. No goals, no score — you watch,
 and occasionally nudge it.
 
-This repo currently implements **Milestone 1: Living field** — the element
-reaction-diffusion sim, canvas rendering, a runtime tuning panel, and the
-headless sweep harness used to find parameter regions that stay alive.
+This repo currently implements:
+
+- **Milestone 1: Living field** — the element reaction-diffusion sim, canvas
+  rendering, a runtime tuning panel, and the headless sweep harness used to
+  find parameter regions that stay alive.
+- **Milestone 2: Breath & current** — the Yin-Yang polarity oscillator (the
+  reversal principle: sustained Yang overshoots and collapses into Yin, and
+  vice versa) coupled to local tempo, plus a flow-visualization layer of
+  motes that advect along the direction waves travel, with fading trails.
 
 ## Requirements
 

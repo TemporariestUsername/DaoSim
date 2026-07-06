@@ -5,6 +5,7 @@ import { Renderer } from './render/renderer';
 import { createDevPanel } from './ui/devPanel';
 import { Gallery } from './gallery/gallery';
 import { BUILTIN_PRESETS } from './sim/presets';
+import { ParticleSystem } from './sim/particles';
 
 const app = document.getElementById('app')!;
 
@@ -15,6 +16,13 @@ app.appendChild(canvas);
 const params = cloneParams(DEFAULT_PARAMS);
 let field = new Field(params.size, params.seed);
 let renderer = new Renderer(canvas, params.size);
+let particles = new ParticleSystem(params.size, params.particleCount, params.seed);
+
+function syncParticlesIfNeeded() {
+  if (particles.count !== params.particleCount || particles.size !== params.size) {
+    particles = new ParticleSystem(params.size, params.particleCount, params.seed);
+  }
+}
 
 function resize() {
   const dpr = window.devicePixelRatio || 1;
@@ -76,6 +84,7 @@ presetSelect.addEventListener('change', () => {
   } else {
     field.reseed(params.seed);
   }
+  syncParticlesIfNeeded();
   devPanel.refresh();
 });
 
@@ -92,10 +101,14 @@ app.appendChild(topBar);
 
 // --- dev panel ---------------------------------------------------------------
 const devPanel = createDevPanel(params, {
-  onChange: () => {},
-  onReseed: (seed) => field.reseed(seed),
+  onChange: () => syncParticlesIfNeeded(),
+  onReseed: (seed) => {
+    field.reseed(seed);
+    particles = new ParticleSystem(params.size, params.particleCount, seed);
+  },
   onReset: () => {
     field = new Field(params.size, params.seed);
+    particles = new ParticleSystem(params.size, params.particleCount, params.seed);
   },
 });
 app.appendChild(devPanel.el);
@@ -136,10 +149,16 @@ function frame(time: number) {
     let steps = 0;
     while (accumulator >= params.dt && steps < 200) {
       field.tick(params);
+      particles.step(field, params.particleSpeed, params.dt);
       accumulator -= params.dt;
       steps++;
     }
-    renderer.draw(field);
+    renderer.draw(field, {
+      particles,
+      showParticles: params.showParticles,
+      showTrails: params.showTrails,
+      trailFade: params.trailFade,
+    });
   }
 }
 requestAnimationFrame(frame);

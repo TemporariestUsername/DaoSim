@@ -15,8 +15,7 @@ export interface SimParams {
   eps: number; // reignition floor so extinct phases can recover
   sigma: number; // noise floor amplitude
 
-  // yin-yang oscillator (unused while polarity is held at 0 in milestone 1,
-  // wired up now so milestone 2 doesn't need a data-model change)
+  // yin-yang reversal-principle oscillator (spec 1.3)
   gamma: number;
   kappa: number;
   lambda: number;
@@ -27,6 +26,13 @@ export interface SimParams {
   conserve: Conserve;
   neighborhood: Neighborhood;
   seed: number;
+
+  // flow-visualization layer (spec 4)
+  particleCount: number;
+  particleSpeed: number;
+  trailFade: number;
+  showParticles: boolean;
+  showTrails: boolean;
 }
 
 export const DEFAULT_PARAMS: SimParams = {
@@ -39,20 +45,34 @@ export const DEFAULT_PARAMS: SimParams = {
   eps: 0.01,
   sigma: 0.002,
 
-  gamma: 2.0,
+  // gamma/eta/aBar tuned from the spec's suggested starting point (2.0/0.4/0.02):
+  // at the literal defaults the oscillator settles to a static Yang-leaning fixed
+  // point instead of breathing (aBar sat well below this field's natural activity
+  // level, ~0.03, and stronger damping never let it overshoot). These values were
+  // empirically verified to produce sustained, slow-crossing local oscillation.
+  gamma: 3.0,
   kappa: 1.5,
   lambda: 0.3,
-  eta: 0.4,
-  aBar: 0.02,
+  eta: 0.1,
+  aBar: 0.03,
 
   dt: 1 / 30,
   conserve: 'simplex',
   neighborhood: 'vonNeumann',
   seed: 1,
+
+  particleCount: 3000,
+  particleSpeed: 6,
+  trailFade: 0.9,
+  showParticles: true,
+  showTrails: true,
 };
 
 export const PARAM_RANGES: Record<
-  keyof Omit<SimParams, 'conserve' | 'neighborhood' | 'seed' | 'size'>,
+  keyof Omit<
+    SimParams,
+    'conserve' | 'neighborhood' | 'seed' | 'size' | 'showParticles' | 'showTrails' | 'particleCount'
+  >,
   { min: number; max: number; step: number }
 > = {
   alpha: { min: 0, max: 3, step: 0.01 },
@@ -67,6 +87,8 @@ export const PARAM_RANGES: Record<
   eta: { min: 0, max: 2, step: 0.01 },
   aBar: { min: 0, max: 0.2, step: 0.001 },
   dt: { min: 1 / 120, max: 1 / 10, step: 1 / 120 },
+  particleSpeed: { min: 0, max: 30, step: 0.5 },
+  trailFade: { min: 0, max: 0.99, step: 0.01 },
 };
 
 export function cloneParams(p: SimParams): SimParams {

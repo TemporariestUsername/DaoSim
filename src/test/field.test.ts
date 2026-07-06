@@ -118,6 +118,41 @@ describe('torus wraparound', () => {
       for (let k = 0; k < NUM_ELEMENTS; k++) {
         expect(shiftedBefore.w[k][idx]).toBeCloseTo(tickedThenShifted.w[k][idx], 6);
       }
+      expect(shiftedBefore.p[idx]).toBeCloseTo(tickedThenShifted.p[idx], 6);
     }
+  });
+});
+
+describe('yin-yang polarity oscillator', () => {
+  it('keeps p clamped to [-1, 1] even under strong forcing', () => {
+    const params = paramsWith({ size: 16, gamma: 20, kappa: 0.01, eta: 0.01, aBar: 0 });
+    const field = new Field(params.size, 5);
+    const n = params.size * params.size;
+    let minP = Infinity;
+    let maxP = -Infinity;
+    let allFiniteV = true;
+    for (let t = 0; t < 1000; t++) {
+      field.tick(params);
+      for (let idx = 0; idx < n; idx++) {
+        if (field.p[idx] < minP) minP = field.p[idx];
+        if (field.p[idx] > maxP) maxP = field.p[idx];
+        if (!Number.isFinite(field.v[idx])) allFiniteV = false;
+      }
+    }
+    expect(minP).toBeGreaterThanOrEqual(-1);
+    expect(maxP).toBeLessThanOrEqual(1);
+    expect(allFiniteV).toBe(true);
+  });
+
+  it('moves p away from the initial 0 once activity drives it (the field is not statically frozen)', () => {
+    const params = paramsWith({ size: 32 });
+    const field = new Field(params.size, 3);
+    for (let t = 0; t < 500; t++) field.tick(params);
+
+    const n = params.size * params.size;
+    let meanAbsP = 0;
+    for (let idx = 0; idx < n; idx++) meanAbsP += Math.abs(field.p[idx]);
+    meanAbsP /= n;
+    expect(meanAbsP).toBeGreaterThan(0.001);
   });
 });
