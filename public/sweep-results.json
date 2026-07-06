@@ -1,0 +1,3090 @@
+{
+  "generatedAt": "2026-07-06T03:31:59.050Z",
+  "options": {
+    "ticks": 10000,
+    "sampleEvery": 200,
+    "activityFloor": 0.00001
+  },
+  "results": [
+    {
+      "params": {
+        "size": 64,
+        "alpha": 0.8,
+        "beta": 0.7,
+        "mu": 0.15,
+        "delta": 0.05,
+        "eps": 0.01,
+        "sigma": 0.002,
+        "gamma": 2,
+        "kappa": 1.5,
+        "lambda": 0.3,
+        "eta": 0.4,
+        "aBar": 0.02,
+        "dt": 0.03333333333333333,
+        "conserve": "simplex",
+        "neighborhood": "vonNeumann",
+        "seed": 1
+      },
+      "score": 0.4375,
+      "scoreBreakdown": {
+        "autocorrelation": 0.4375,
+        "activity": 1,
+        "dominant": 1
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "entropy": 1.5245099871806478,
+          "autocorrelation": 1,
+          "activity": 0.015252215037435235,
+          "dominantShare": 0.20070446301997436
+        },
+        {
+          "tick": 200,
+          "entropy": 1.5755567356596012,
+          "autocorrelation": 2,
+          "activity": 0.00629990284923565,
+          "dominantShare": 0.20021025624828326
+        },
+        {
+          "tick": 400,
+          "entropy": 1.5308825211956731,
+          "autocorrelation": 2,
+          "activity": 0.008204929480115197,
+          "dominantShare": 0.2006999032537351
+        },
+        {
+          "tick": 600,
+          "entropy": 1.4080565373557108,
+          "autocorrelation": 4,
+          "activity": 0.012950270747865034,
+          "dominantShare": 0.20381439658734735
+        },
+        {
+          "tick": 800,
+          "entropy": 1.251221725239362,
+          "autocorrelation": 4,
+          "activity": 0.017309093386344898,
+          "dominantShare": 0.20845995259806216
+        },
+        {
+          "tick": 1000,
+          "entropy": 1.136455799755238,
+          "autocorrelation": 4,
+          "activity": 0.019890808237079227,
+          "dominantShare": 0.21597407207408992
+        },
+        {
+          "tick": 1200,
+          "entropy": 1.069428621892551,
+          "autocorrelation": 4,
+          "activity": 0.021008008979833903,
+          "dominantShare": 0.21328279886852375
+        },
+        {
+          "tick": 1400,
+          "entropy": 1.03818555979375,
+          "autocorrelation": 4,
+          "activity": 0.02187649773264866,
+          "dominantShare": 0.2194980055254061
+        },
+        {
+          "tick": 1600,
+          "entropy": 1.0159882239362465,
+          "autocorrelation": 4,
+          "activity": 0.02221137567335063,
+          "dominantShare": 0.21629482399718247
+        },
+        {
+          "tick": 1800,
+          "entropy": 1.007371789050825,
+          "autocorrelation": 4,
+          "activity": 0.022559896266045598,
+          "dominantShare": 0.22068909895162525
+        },
+        {
+          "tick": 2000,
+          "entropy": 0.9992394737649957,
+          "autocorrelation": 4,
+          "activity": 0.022617667235635963,
+          "dominantShare": 0.21846199963868074
+        },
+        {
+          "tick": 2200,
+          "entropy": 0.9953380587914804,
+          "autocorrelation": 4,
+          "activity": 0.022793939209861946,
+          "dominantShare": 0.22144674202091608
+        },
+        {
+          "tick": 2400,
+          "entropy": 0.9923518962993467,
+          "autocorrelation": 4,
+          "activity": 0.022849805743248908,
+          "dominantShare": 0.22126324407041587
+        },
+        {
+          "tick": 2600,
+          "entropy": 0.9901943624875543,
+          "autocorrelation": 4,
+          "activity": 0.022874238561257698,
+          "dominantShare": 0.22300348640763756
+        },
+        {
+          "tick": 2800,
+          "entropy": 0.9892678299868328,
+          "autocorrelation": 4,
+          "activity": 0.022969954218865496,
+          "dominantShare": 0.22233161154111158
+        },
+        {
+          "tick": 3000,
+          "entropy": 0.98858183883869,
+          "autocorrelation": 8,
+          "activity": 0.022948202807810958,
+          "dominantShare": 0.22381454920370736
+        },
+        {
+          "tick": 3200,
+          "entropy": 0.98706753180706,
+          "autocorrelation": 8,
+          "activity": 0.02306642458489705,
+          "dominantShare": 0.22346564598048602
+        },
+        {
+          "tick": 3400,
+          "entropy": 0.9864374471930559,
+          "autocorrelation": 8,
+          "activity": 0.023034373992800283,
+          "dominantShare": 0.22469236468633547
+        },
+        {
+          "tick": 3600,
+          "entropy": 0.9851993025342954,
+          "autocorrelation": 8,
+          "activity": 0.0231597251193989,
+          "dominantShare": 0.22155868495047723
+        },
+        {
+          "tick": 3800,
+          "entropy": 0.9830472846024254,
+          "autocorrelation": 8,
+          "activity": 0.02316929367236753,
+          "dominantShare": 0.22321695896699545
+        },
+        {
+          "tick": 4000,
+          "entropy": 0.9803888851465064,
+          "autocorrelation": 8,
+          "activity": 0.02324597322331101,
+          "dominantShare": 0.2193878950946655
+        },
+        {
+          "tick": 4200,
+          "entropy": 0.9800705360896741,
+          "autocorrelation": 8,
+          "activity": 0.023363102406790404,
+          "dominantShare": 0.2207917877701373
+        },
+        {
+          "tick": 4400,
+          "entropy": 0.9762135508559259,
+          "autocorrelation": 8,
+          "activity": 0.023364669897034673,
+          "dominantShare": 0.21818125000610497
+        },
+        {
+          "tick": 4600,
+          "entropy": 0.9779052563618126,
+          "autocorrelation": 8,
+          "activity": 0.02346100855373834,
+          "dominantShare": 0.21878927639210888
+        },
+        {
+          "tick": 4800,
+          "entropy": 0.9724904424765708,
+          "autocorrelation": 8,
+          "activity": 0.023429208386460232,
+          "dominantShare": 0.21817619626239315
+        },
+        {
+          "tick": 5000,
+          "entropy": 0.9749379954965854,
+          "autocorrelation": 8,
+          "activity": 0.02352240574401776,
+          "dominantShare": 0.21751164134811696
+        },
+        {
+          "tick": 5200,
+          "entropy": 0.9716112629946679,
+          "autocorrelation": 8,
+          "activity": 0.023465408075708183,
+          "dominantShare": 0.21869730415893862
+        },
+        {
+          "tick": 5400,
+          "entropy": 0.9738495351038203,
+          "autocorrelation": 8,
+          "activity": 0.023513719847073844,
+          "dominantShare": 0.217656236278446
+        },
+        {
+          "tick": 5600,
+          "entropy": 0.9710779475612964,
+          "autocorrelation": 8,
+          "activity": 0.023455689466459262,
+          "dominantShare": 0.21829323953879576
+        },
+        {
+          "tick": 5800,
+          "entropy": 0.9737602065204385,
+          "autocorrelation": 8,
+          "activity": 0.023545306397522836,
+          "dominantShare": 0.2167054937169639
+        },
+        {
+          "tick": 6000,
+          "entropy": 0.9717242774602902,
+          "autocorrelation": 8,
+          "activity": 0.02349191629662073,
+          "dominantShare": 0.21851639690051794
+        },
+        {
+          "tick": 6200,
+          "entropy": 0.9737790208371054,
+          "autocorrelation": 8,
+          "activity": 0.02356205661021704,
+          "dominantShare": 0.21629113141369213
+        },
+        {
+          "tick": 6400,
+          "entropy": 0.9701722156346272,
+          "autocorrelation": 8,
+          "activity": 0.023529160910811697,
+          "dominantShare": 0.21926507068345868
+        },
+        {
+          "tick": 6600,
+          "entropy": 0.9725846022796975,
+          "autocorrelation": 8,
+          "activity": 0.023592243017674264,
+          "dominantShare": 0.21678872676579716
+        },
+        {
+          "tick": 6800,
+          "entropy": 0.9696227434386041,
+          "autocorrelation": 8,
+          "activity": 0.02350511085234075,
+          "dominantShare": 0.21851781958182803
+        },
+        {
+          "tick": 7000,
+          "entropy": 0.9703246041241649,
+          "autocorrelation": 8,
+          "activity": 0.023540847332753856,
+          "dominantShare": 0.21757485506216012
+        },
+        {
+          "tick": 7200,
+          "entropy": 0.9703227761892496,
+          "autocorrelation": 8,
+          "activity": 0.02349248696793893,
+          "dominantShare": 0.21879393358724375
+        },
+        {
+          "tick": 7400,
+          "entropy": 0.9710063497874271,
+          "autocorrelation": 8,
+          "activity": 0.023565266826949482,
+          "dominantShare": 0.21917616674655083
+        },
+        {
+          "tick": 7600,
+          "entropy": 0.9692304622742469,
+          "autocorrelation": 8,
+          "activity": 0.0235432064061456,
+          "dominantShare": 0.21872734621565337
+        },
+        {
+          "tick": 7800,
+          "entropy": 0.9705717814306091,
+          "autocorrelation": 8,
+          "activity": 0.02359027998448937,
+          "dominantShare": 0.22002562404774328
+        },
+        {
+          "tick": 8000,
+          "entropy": 0.9707161101833242,
+          "autocorrelation": 8,
+          "activity": 0.02354800358682496,
+          "dominantShare": 0.21862502002808037
+        },
+        {
+          "tick": 8200,
+          "entropy": 0.9702780413152227,
+          "autocorrelation": 8,
+          "activity": 0.023666778178267123,
+          "dominantShare": 0.22129278729127932
+        },
+        {
+          "tick": 8400,
+          "entropy": 0.9677722686863574,
+          "autocorrelation": 8,
+          "activity": 0.023615272257472952,
+          "dominantShare": 0.21871079646862768
+        },
+        {
+          "tick": 8600,
+          "entropy": 0.968432988858021,
+          "autocorrelation": 8,
+          "activity": 0.02367651349004518,
+          "dominantShare": 0.22106522170001242
+        },
+        {
+          "tick": 8800,
+          "entropy": 0.9668937945241424,
+          "autocorrelation": 8,
+          "activity": 0.023591714492852134,
+          "dominantShare": 0.21972820449637576
+        },
+        {
+          "tick": 9000,
+          "entropy": 0.9678963144562481,
+          "autocorrelation": 8,
+          "activity": 0.023684460623485393,
+          "dominantShare": 0.22170025614981093
+        },
+        {
+          "tick": 9200,
+          "entropy": 0.9676017526579058,
+          "autocorrelation": 8,
+          "activity": 0.023579540126888787,
+          "dominantShare": 0.21916547123619523
+        },
+        {
+          "tick": 9400,
+          "entropy": 0.9687454218887002,
+          "autocorrelation": 8,
+          "activity": 0.023741228547123683,
+          "dominantShare": 0.22302318444228464
+        },
+        {
+          "tick": 9600,
+          "entropy": 0.9660668644098283,
+          "autocorrelation": 8,
+          "activity": 0.0236341611653188,
+          "dominantShare": 0.21911738376380996
+        },
+        {
+          "tick": 9800,
+          "entropy": 0.9681259601609353,
+          "autocorrelation": 8,
+          "activity": 0.02383426524954757,
+          "dominantShare": 0.2242368929193006
+        },
+        {
+          "tick": 9999,
+          "entropy": 0.965677915176219,
+          "autocorrelation": 8,
+          "activity": 0.02369160739937115,
+          "dominantShare": 0.2188488302387923
+        }
+      ]
+    },
+    {
+      "params": {
+        "size": 64,
+        "alpha": 0.8,
+        "beta": 0.7,
+        "mu": 0.25,
+        "delta": 0.05,
+        "eps": 0.01,
+        "sigma": 0.002,
+        "gamma": 2,
+        "kappa": 1.5,
+        "lambda": 0.3,
+        "eta": 0.4,
+        "aBar": 0.02,
+        "dt": 0.03333333333333333,
+        "conserve": "simplex",
+        "neighborhood": "vonNeumann",
+        "seed": 1
+      },
+      "score": 0.4375,
+      "scoreBreakdown": {
+        "autocorrelation": 0.4375,
+        "activity": 1,
+        "dominant": 1
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "entropy": 1.5251113709300168,
+          "autocorrelation": 1,
+          "activity": 0.021874015505204625,
+          "dominantShare": 0.2007044470647088
+        },
+        {
+          "tick": 200,
+          "entropy": 1.5872005138250056,
+          "autocorrelation": 2,
+          "activity": 0.005759077296914938,
+          "dominantShare": 0.20023450570624846
+        },
+        {
+          "tick": 400,
+          "entropy": 1.5484102150889583,
+          "autocorrelation": 4,
+          "activity": 0.007557297124435536,
+          "dominantShare": 0.20063878014252623
+        },
+        {
+          "tick": 600,
+          "entropy": 1.43804806417868,
+          "autocorrelation": 4,
+          "activity": 0.012176069274687507,
+          "dominantShare": 0.20367184757265022
+        },
+        {
+          "tick": 800,
+          "entropy": 1.2834973452315999,
+          "autocorrelation": 4,
+          "activity": 0.01677389546122754,
+          "dominantShare": 0.20912854024582472
+        },
+        {
+          "tick": 1000,
+          "entropy": 1.1653427521508843,
+          "autocorrelation": 4,
+          "activity": 0.019607319884926255,
+          "dominantShare": 0.21554190806325213
+        },
+        {
+          "tick": 1200,
+          "entropy": 1.095578342742191,
+          "autocorrelation": 4,
+          "activity": 0.020883066128419614,
+          "dominantShare": 0.2162248971082521
+        },
+        {
+          "tick": 1400,
+          "entropy": 1.0613306287704698,
+          "autocorrelation": 4,
+          "activity": 0.021766770316162365,
+          "dominantShare": 0.21965415715548398
+        },
+        {
+          "tick": 1600,
+          "entropy": 1.0398350775685443,
+          "autocorrelation": 8,
+          "activity": 0.022206008096134155,
+          "dominantShare": 0.21899036055165588
+        },
+        {
+          "tick": 1800,
+          "entropy": 1.0278107949807824,
+          "autocorrelation": 8,
+          "activity": 0.02248079387533153,
+          "dominantShare": 0.2208735546264995
+        },
+        {
+          "tick": 2000,
+          "entropy": 1.0203132712775418,
+          "autocorrelation": 8,
+          "activity": 0.02273829906073388,
+          "dominantShare": 0.21952323037722798
+        },
+        {
+          "tick": 2200,
+          "entropy": 1.0117515477049714,
+          "autocorrelation": 8,
+          "activity": 0.02285371601180941,
+          "dominantShare": 0.2204446840412122
+        },
+        {
+          "tick": 2400,
+          "entropy": 1.0077227406380065,
+          "autocorrelation": 8,
+          "activity": 0.023096318744137534,
+          "dominantShare": 0.21958399928815786
+        },
+        {
+          "tick": 2600,
+          "entropy": 1.0017392769585247,
+          "autocorrelation": 8,
+          "activity": 0.023112580722283838,
+          "dominantShare": 0.2196652132149448
+        },
+        {
+          "tick": 2800,
+          "entropy": 0.9993723680515687,
+          "autocorrelation": 8,
+          "activity": 0.02332193775913538,
+          "dominantShare": 0.21974343944928965
+        },
+        {
+          "tick": 3000,
+          "entropy": 0.9956213073832887,
+          "autocorrelation": 8,
+          "activity": 0.023362667707488072,
+          "dominantShare": 0.2191067636843167
+        },
+        {
+          "tick": 3200,
+          "entropy": 0.9917265925216514,
+          "autocorrelation": 8,
+          "activity": 0.02348500921448249,
+          "dominantShare": 0.21927172811691165
+        },
+        {
+          "tick": 3400,
+          "entropy": 0.9891904612877087,
+          "autocorrelation": 8,
+          "activity": 0.023545348073298555,
+          "dominantShare": 0.2180196830827353
+        },
+        {
+          "tick": 3600,
+          "entropy": 0.9869335890654668,
+          "autocorrelation": 8,
+          "activity": 0.023565818448957998,
+          "dominantShare": 0.2170362492748763
+        },
+        {
+          "tick": 3800,
+          "entropy": 0.9849149835260312,
+          "autocorrelation": 8,
+          "activity": 0.02360327519920702,
+          "dominantShare": 0.21629050641612046
+        },
+        {
+          "tick": 4000,
+          "entropy": 0.9841433194028625,
+          "autocorrelation": 8,
+          "activity": 0.023609423629693538,
+          "dominantShare": 0.21580243977802782
+        },
+        {
+          "tick": 4200,
+          "entropy": 0.9834957424580181,
+          "autocorrelation": 8,
+          "activity": 0.02362556785283232,
+          "dominantShare": 0.21506338784642454
+        },
+        {
+          "tick": 4400,
+          "entropy": 0.9839107542201816,
+          "autocorrelation": 8,
+          "activity": 0.02368400594372133,
+          "dominantShare": 0.21464132944792813
+        },
+        {
+          "tick": 4600,
+          "entropy": 0.9825453249915785,
+          "autocorrelation": 8,
+          "activity": 0.023666047384608646,
+          "dominantShare": 0.21533918666396
+        },
+        {
+          "tick": 4800,
+          "entropy": 0.9801644871842925,
+          "autocorrelation": 8,
+          "activity": 0.02372090928452053,
+          "dominantShare": 0.2133893691156492
+        },
+        {
+          "tick": 5000,
+          "entropy": 0.9788599805404677,
+          "autocorrelation": 8,
+          "activity": 0.02374897323704772,
+          "dominantShare": 0.2158031227757259
+        },
+        {
+          "tick": 5200,
+          "entropy": 0.9790987180742116,
+          "autocorrelation": 8,
+          "activity": 0.023749427772713716,
+          "dominantShare": 0.21554572788918525
+        },
+        {
+          "tick": 5400,
+          "entropy": 0.9777228175887362,
+          "autocorrelation": 8,
+          "activity": 0.023753464430228632,
+          "dominantShare": 0.21616732539533956
+        },
+        {
+          "tick": 5600,
+          "entropy": 0.9776407380254728,
+          "autocorrelation": 8,
+          "activity": 0.023767645429074946,
+          "dominantShare": 0.21830686585145687
+        },
+        {
+          "tick": 5800,
+          "entropy": 0.9768219147701107,
+          "autocorrelation": 8,
+          "activity": 0.02375697795253018,
+          "dominantShare": 0.21585887351972777
+        },
+        {
+          "tick": 6000,
+          "entropy": 0.9769531103832273,
+          "autocorrelation": 8,
+          "activity": 0.023805943247907635,
+          "dominantShare": 0.2210809656767979
+        },
+        {
+          "tick": 6200,
+          "entropy": 0.9769068188522495,
+          "autocorrelation": 8,
+          "activity": 0.023763214289203916,
+          "dominantShare": 0.21501564196745981
+        },
+        {
+          "tick": 6400,
+          "entropy": 0.9764616939243589,
+          "autocorrelation": 8,
+          "activity": 0.023815948179731095,
+          "dominantShare": 0.22240127872424864
+        },
+        {
+          "tick": 6600,
+          "entropy": 0.9760681609950439,
+          "autocorrelation": 8,
+          "activity": 0.0237876878913994,
+          "dominantShare": 0.21505660640709223
+        },
+        {
+          "tick": 6800,
+          "entropy": 0.9757110565121577,
+          "autocorrelation": 8,
+          "activity": 0.023827582082674326,
+          "dominantShare": 0.22518361638966988
+        },
+        {
+          "tick": 7000,
+          "entropy": 0.9743660665912977,
+          "autocorrelation": 8,
+          "activity": 0.02377296872543866,
+          "dominantShare": 0.214258899223692
+        },
+        {
+          "tick": 7200,
+          "entropy": 0.9754835124641248,
+          "autocorrelation": 8,
+          "activity": 0.02384618599978694,
+          "dominantShare": 0.22652270847445832
+        },
+        {
+          "tick": 7400,
+          "entropy": 0.9739317991231635,
+          "autocorrelation": 8,
+          "activity": 0.0238568778884769,
+          "dominantShare": 0.21475331269297881
+        },
+        {
+          "tick": 7600,
+          "entropy": 0.9715565961545782,
+          "autocorrelation": 8,
+          "activity": 0.02397260159762027,
+          "dominantShare": 0.2271206890157882
+        },
+        {
+          "tick": 7800,
+          "entropy": 0.9701910217081993,
+          "autocorrelation": 8,
+          "activity": 0.02392942843596302,
+          "dominantShare": 0.21590677293820382
+        },
+        {
+          "tick": 8000,
+          "entropy": 0.970429396793315,
+          "autocorrelation": 8,
+          "activity": 0.024053228922070957,
+          "dominantShare": 0.22791326387236222
+        },
+        {
+          "tick": 8200,
+          "entropy": 0.9689996474821816,
+          "autocorrelation": 8,
+          "activity": 0.02397049550131669,
+          "dominantShare": 0.21627210536762753
+        },
+        {
+          "tick": 8400,
+          "entropy": 0.969089155139692,
+          "autocorrelation": 8,
+          "activity": 0.02407009657861181,
+          "dominantShare": 0.22770471373088208
+        },
+        {
+          "tick": 8600,
+          "entropy": 0.9672479046913691,
+          "autocorrelation": 8,
+          "activity": 0.02395298083712305,
+          "dominantShare": 0.21734009670076793
+        },
+        {
+          "tick": 8800,
+          "entropy": 0.9686083346070071,
+          "autocorrelation": 8,
+          "activity": 0.0240895140327666,
+          "dominantShare": 0.227957691543617
+        },
+        {
+          "tick": 9000,
+          "entropy": 0.9669227356820513,
+          "autocorrelation": 8,
+          "activity": 0.02397663806368655,
+          "dominantShare": 0.21851140745791697
+        },
+        {
+          "tick": 9200,
+          "entropy": 0.9678981965015634,
+          "autocorrelation": 8,
+          "activity": 0.0240995644228974,
+          "dominantShare": 0.228196152831587
+        },
+        {
+          "tick": 9400,
+          "entropy": 0.9669754193039711,
+          "autocorrelation": 8,
+          "activity": 0.02402656238302825,
+          "dominantShare": 0.21912429442918135
+        },
+        {
+          "tick": 9600,
+          "entropy": 0.9667457531318121,
+          "autocorrelation": 8,
+          "activity": 0.02416595192414661,
+          "dominantShare": 0.2274451976587537
+        },
+        {
+          "tick": 9800,
+          "entropy": 0.9649900274514376,
+          "autocorrelation": 8,
+          "activity": 0.024101077601187626,
+          "dominantShare": 0.2192024060635742
+        },
+        {
+          "tick": 9999,
+          "entropy": 0.9653765343818304,
+          "autocorrelation": 8,
+          "activity": 0.02419021715513736,
+          "dominantShare": 0.22673169488874834
+        }
+      ]
+    },
+    {
+      "params": {
+        "size": 64,
+        "alpha": 0.8,
+        "beta": 0.9,
+        "mu": 0.15,
+        "delta": 0.05,
+        "eps": 0.01,
+        "sigma": 0.002,
+        "gamma": 2,
+        "kappa": 1.5,
+        "lambda": 0.3,
+        "eta": 0.4,
+        "aBar": 0.02,
+        "dt": 0.03333333333333333,
+        "conserve": "simplex",
+        "neighborhood": "vonNeumann",
+        "seed": 1
+      },
+      "score": 0.4375,
+      "scoreBreakdown": {
+        "autocorrelation": 0.4375,
+        "activity": 1,
+        "dominant": 1
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "entropy": 1.5245112868419772,
+          "autocorrelation": 1,
+          "activity": 0.019615227377130395,
+          "dominantShare": 0.2007036357153993
+        },
+        {
+          "tick": 200,
+          "entropy": 1.5667473770091613,
+          "autocorrelation": 2,
+          "activity": 0.011207291659616203,
+          "dominantShare": 0.20026642366792657
+        },
+        {
+          "tick": 400,
+          "entropy": 1.4798912087979668,
+          "autocorrelation": 2,
+          "activity": 0.011316339697259536,
+          "dominantShare": 0.20123684832037725
+        },
+        {
+          "tick": 600,
+          "entropy": 1.2954020673720634,
+          "autocorrelation": 4,
+          "activity": 0.014895100288811136,
+          "dominantShare": 0.20749066459776877
+        },
+        {
+          "tick": 800,
+          "entropy": 1.1348196906287409,
+          "autocorrelation": 4,
+          "activity": 0.01791873683362155,
+          "dominantShare": 0.21479220082016237
+        },
+        {
+          "tick": 1000,
+          "entropy": 1.0524175766489003,
+          "autocorrelation": 4,
+          "activity": 0.01950289993169463,
+          "dominantShare": 0.21468153984550614
+        },
+        {
+          "tick": 1200,
+          "entropy": 1.012270644100581,
+          "autocorrelation": 4,
+          "activity": 0.02045293181430452,
+          "dominantShare": 0.2209214956320844
+        },
+        {
+          "tick": 1400,
+          "entropy": 0.9908029407169192,
+          "autocorrelation": 4,
+          "activity": 0.020802147357244394,
+          "dominantShare": 0.21606123524752757
+        },
+        {
+          "tick": 1600,
+          "entropy": 0.9793933291018246,
+          "autocorrelation": 4,
+          "activity": 0.0212783716466447,
+          "dominantShare": 0.22267993820255588
+        },
+        {
+          "tick": 1800,
+          "entropy": 0.9704031606872839,
+          "autocorrelation": 4,
+          "activity": 0.021325040297256237,
+          "dominantShare": 0.21701826489533843
+        },
+        {
+          "tick": 2000,
+          "entropy": 0.9690902329598649,
+          "autocorrelation": 4,
+          "activity": 0.021528605121716282,
+          "dominantShare": 0.22414253004312812
+        },
+        {
+          "tick": 2200,
+          "entropy": 0.9654406569261157,
+          "autocorrelation": 4,
+          "activity": 0.02158011292539186,
+          "dominantShare": 0.21769443768775965
+        },
+        {
+          "tick": 2400,
+          "entropy": 0.9630481717614622,
+          "autocorrelation": 4,
+          "activity": 0.021582604789728066,
+          "dominantShare": 0.22654288572742898
+        },
+        {
+          "tick": 2600,
+          "entropy": 0.9621730595227275,
+          "autocorrelation": 4,
+          "activity": 0.021754090478339094,
+          "dominantShare": 0.2174070261333796
+        },
+        {
+          "tick": 2800,
+          "entropy": 0.9603917378975328,
+          "autocorrelation": 4,
+          "activity": 0.02162956155905249,
+          "dominantShare": 0.227650856420466
+        },
+        {
+          "tick": 3000,
+          "entropy": 0.9619877149827996,
+          "autocorrelation": 4,
+          "activity": 0.02175915725251798,
+          "dominantShare": 0.21931115266239942
+        },
+        {
+          "tick": 3200,
+          "entropy": 0.9583494927725426,
+          "autocorrelation": 4,
+          "activity": 0.021754230341684888,
+          "dominantShare": 0.22663898968592416
+        },
+        {
+          "tick": 3400,
+          "entropy": 0.959682133780897,
+          "autocorrelation": 8,
+          "activity": 0.021784795031578597,
+          "dominantShare": 0.22002770567452945
+        },
+        {
+          "tick": 3600,
+          "entropy": 0.9571760430961813,
+          "autocorrelation": 8,
+          "activity": 0.02186593719687835,
+          "dominantShare": 0.225068826344912
+        },
+        {
+          "tick": 3800,
+          "entropy": 0.9568825089698264,
+          "autocorrelation": 8,
+          "activity": 0.02188550240339282,
+          "dominantShare": 0.22121963312797255
+        },
+        {
+          "tick": 4000,
+          "entropy": 0.9537404830771413,
+          "autocorrelation": 8,
+          "activity": 0.021965435282936596,
+          "dominantShare": 0.2225733110605519
+        },
+        {
+          "tick": 4200,
+          "entropy": 0.95509580265261,
+          "autocorrelation": 8,
+          "activity": 0.021959488234983837,
+          "dominantShare": 0.2222581382964508
+        },
+        {
+          "tick": 4400,
+          "entropy": 0.9519649230466928,
+          "autocorrelation": 8,
+          "activity": 0.021947850712763284,
+          "dominantShare": 0.21906066690570258
+        },
+        {
+          "tick": 4600,
+          "entropy": 0.9536165565486763,
+          "autocorrelation": 8,
+          "activity": 0.02203623650643749,
+          "dominantShare": 0.22141956906468163
+        },
+        {
+          "tick": 4800,
+          "entropy": 0.9518406412010237,
+          "autocorrelation": 8,
+          "activity": 0.021948703708403627,
+          "dominantShare": 0.21501270617228307
+        },
+        {
+          "tick": 5000,
+          "entropy": 0.9530031608642083,
+          "autocorrelation": 8,
+          "activity": 0.022000513300213242,
+          "dominantShare": 0.22016152771766695
+        },
+        {
+          "tick": 5200,
+          "entropy": 0.9507480884235454,
+          "autocorrelation": 8,
+          "activity": 0.022032654357985848,
+          "dominantShare": 0.21494216888707474
+        },
+        {
+          "tick": 5400,
+          "entropy": 0.9509173552744757,
+          "autocorrelation": 8,
+          "activity": 0.02199777642749723,
+          "dominantShare": 0.219150793509154
+        },
+        {
+          "tick": 5600,
+          "entropy": 0.9517202148688664,
+          "autocorrelation": 8,
+          "activity": 0.022075707014778345,
+          "dominantShare": 0.21759764516599578
+        },
+        {
+          "tick": 5800,
+          "entropy": 0.9499620731777447,
+          "autocorrelation": 8,
+          "activity": 0.02197721358572835,
+          "dominantShare": 0.21967014893756787
+        },
+        {
+          "tick": 6000,
+          "entropy": 0.9514616281086546,
+          "autocorrelation": 8,
+          "activity": 0.022151224824142446,
+          "dominantShare": 0.22099166803431292
+        },
+        {
+          "tick": 6200,
+          "entropy": 0.9476991385272419,
+          "autocorrelation": 8,
+          "activity": 0.022088400932034347,
+          "dominantShare": 0.2191547182245298
+        },
+        {
+          "tick": 6400,
+          "entropy": 0.9496791270152778,
+          "autocorrelation": 8,
+          "activity": 0.022171053383658545,
+          "dominantShare": 0.223592347382782
+        },
+        {
+          "tick": 6600,
+          "entropy": 0.948397177572448,
+          "autocorrelation": 8,
+          "activity": 0.022133206466151023,
+          "dominantShare": 0.21943180461953382
+        },
+        {
+          "tick": 6800,
+          "entropy": 0.9473564543071635,
+          "autocorrelation": 8,
+          "activity": 0.022154031710783784,
+          "dominantShare": 0.22625736416380282
+        },
+        {
+          "tick": 7000,
+          "entropy": 0.946232298908976,
+          "autocorrelation": 8,
+          "activity": 0.02214456281205912,
+          "dominantShare": 0.2196870112989293
+        },
+        {
+          "tick": 7200,
+          "entropy": 0.9472030376682772,
+          "autocorrelation": 8,
+          "activity": 0.022134387329515448,
+          "dominantShare": 0.22821578371229112
+        },
+        {
+          "tick": 7400,
+          "entropy": 0.9481332811716854,
+          "autocorrelation": 8,
+          "activity": 0.022169954814671655,
+          "dominantShare": 0.22207827323345608
+        },
+        {
+          "tick": 7600,
+          "entropy": 0.9465612235630348,
+          "autocorrelation": 8,
+          "activity": 0.022180564905511346,
+          "dominantShare": 0.22933714328623936
+        },
+        {
+          "tick": 7800,
+          "entropy": 0.9476348988886752,
+          "autocorrelation": 8,
+          "activity": 0.02217414038921106,
+          "dominantShare": 0.22712086797868247
+        },
+        {
+          "tick": 8000,
+          "entropy": 0.9479947915106005,
+          "autocorrelation": 8,
+          "activity": 0.02222055341144369,
+          "dominantShare": 0.22940890606395553
+        },
+        {
+          "tick": 8200,
+          "entropy": 0.9460573499589169,
+          "autocorrelation": 8,
+          "activity": 0.022124813941900356,
+          "dominantShare": 0.23137637571213993
+        },
+        {
+          "tick": 8400,
+          "entropy": 0.9484100533582185,
+          "autocorrelation": 8,
+          "activity": 0.02226115008306806,
+          "dominantShare": 0.22959269369728086
+        },
+        {
+          "tick": 8600,
+          "entropy": 0.9443008147619691,
+          "autocorrelation": 8,
+          "activity": 0.022097330001201954,
+          "dominantShare": 0.2354004636607675
+        },
+        {
+          "tick": 8800,
+          "entropy": 0.9478346865774459,
+          "autocorrelation": 8,
+          "activity": 0.022262336795392912,
+          "dominantShare": 0.2298748137999307
+        },
+        {
+          "tick": 9000,
+          "entropy": 0.9433558168592912,
+          "autocorrelation": 8,
+          "activity": 0.022129189779889202,
+          "dominantShare": 0.2391035869729653
+        },
+        {
+          "tick": 9200,
+          "entropy": 0.9491715914831783,
+          "autocorrelation": 8,
+          "activity": 0.02224655244128826,
+          "dominantShare": 0.22960372832420645
+        },
+        {
+          "tick": 9400,
+          "entropy": 0.9453282856235393,
+          "autocorrelation": 8,
+          "activity": 0.02221492612761722,
+          "dominantShare": 0.24201967617661246
+        },
+        {
+          "tick": 9600,
+          "entropy": 0.946936326073086,
+          "autocorrelation": 8,
+          "activity": 0.02217846192070283,
+          "dominantShare": 0.23159175441465463
+        },
+        {
+          "tick": 9800,
+          "entropy": 0.9451936565097172,
+          "autocorrelation": 8,
+          "activity": 0.022329642510726444,
+          "dominantShare": 0.2443110111043499
+        },
+        {
+          "tick": 9999,
+          "entropy": 0.9445669836164886,
+          "autocorrelation": 8,
+          "activity": 0.022133769222136834,
+          "dominantShare": 0.238615446578188
+        }
+      ]
+    },
+    {
+      "params": {
+        "size": 64,
+        "alpha": 0.8,
+        "beta": 0.9,
+        "mu": 0.25,
+        "delta": 0.05,
+        "eps": 0.01,
+        "sigma": 0.002,
+        "gamma": 2,
+        "kappa": 1.5,
+        "lambda": 0.3,
+        "eta": 0.4,
+        "aBar": 0.02,
+        "dt": 0.03333333333333333,
+        "conserve": "simplex",
+        "neighborhood": "vonNeumann",
+        "seed": 1
+      },
+      "score": 0.4375,
+      "scoreBreakdown": {
+        "autocorrelation": 0.4375,
+        "activity": 1,
+        "dominant": 1
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "entropy": 1.5251134211598516,
+          "autocorrelation": 1,
+          "activity": 0.02587465098145003,
+          "dominantShare": 0.20070361969374062
+        },
+        {
+          "tick": 200,
+          "entropy": 1.579983650525769,
+          "autocorrelation": 2,
+          "activity": 0.0112138241933053,
+          "dominantShare": 0.20029276626337378
+        },
+        {
+          "tick": 400,
+          "entropy": 1.5033417727322846,
+          "autocorrelation": 4,
+          "activity": 0.01100007899810862,
+          "dominantShare": 0.2011962320989369
+        },
+        {
+          "tick": 600,
+          "entropy": 1.3272968568383878,
+          "autocorrelation": 4,
+          "activity": 0.01439759548696884,
+          "dominantShare": 0.2077341645224493
+        },
+        {
+          "tick": 800,
+          "entropy": 1.1639694028354526,
+          "autocorrelation": 4,
+          "activity": 0.017612759073188045,
+          "dominantShare": 0.21425029919455074
+        },
+        {
+          "tick": 1000,
+          "entropy": 1.0791510219418694,
+          "autocorrelation": 4,
+          "activity": 0.019293789032360564,
+          "dominantShare": 0.2174668795251975
+        },
+        {
+          "tick": 1200,
+          "entropy": 1.0378666461521433,
+          "autocorrelation": 4,
+          "activity": 0.02032849910551704,
+          "dominantShare": 0.22014219664182644
+        },
+        {
+          "tick": 1400,
+          "entropy": 1.0154252890575206,
+          "autocorrelation": 8,
+          "activity": 0.020747139333764153,
+          "dominantShare": 0.22030074411463874
+        },
+        {
+          "tick": 1600,
+          "entropy": 1.0029552594225395,
+          "autocorrelation": 8,
+          "activity": 0.02108918611753552,
+          "dominantShare": 0.22282291070476035
+        },
+        {
+          "tick": 1800,
+          "entropy": 0.9955474401060382,
+          "autocorrelation": 8,
+          "activity": 0.02131551032232437,
+          "dominantShare": 0.22028486757641352
+        },
+        {
+          "tick": 2000,
+          "entropy": 0.9905148089475727,
+          "autocorrelation": 8,
+          "activity": 0.02139802963921511,
+          "dominantShare": 0.22493925669756676
+        },
+        {
+          "tick": 2200,
+          "entropy": 0.9866576913580658,
+          "autocorrelation": 8,
+          "activity": 0.021656820522366615,
+          "dominantShare": 0.21872521901686492
+        },
+        {
+          "tick": 2400,
+          "entropy": 0.9811462401749059,
+          "autocorrelation": 8,
+          "activity": 0.021693575587391933,
+          "dominantShare": 0.22493915927782326
+        },
+        {
+          "tick": 2600,
+          "entropy": 0.9749950510999409,
+          "autocorrelation": 8,
+          "activity": 0.021902653448478304,
+          "dominantShare": 0.21897237053840168
+        },
+        {
+          "tick": 2800,
+          "entropy": 0.974323975667437,
+          "autocorrelation": 8,
+          "activity": 0.0219594498346396,
+          "dominantShare": 0.22433544959649032
+        },
+        {
+          "tick": 3000,
+          "entropy": 0.9694121576897113,
+          "autocorrelation": 8,
+          "activity": 0.022004473376227907,
+          "dominantShare": 0.21964124244862315
+        },
+        {
+          "tick": 3200,
+          "entropy": 0.9689207204893774,
+          "autocorrelation": 8,
+          "activity": 0.022167394684061037,
+          "dominantShare": 0.22225193168175328
+        },
+        {
+          "tick": 3400,
+          "entropy": 0.9650499704222845,
+          "autocorrelation": 8,
+          "activity": 0.022148968734029495,
+          "dominantShare": 0.21903652057160095
+        },
+        {
+          "tick": 3600,
+          "entropy": 0.9652605949315461,
+          "autocorrelation": 8,
+          "activity": 0.022199657693704467,
+          "dominantShare": 0.2209094885793922
+        },
+        {
+          "tick": 3800,
+          "entropy": 0.9618017485887641,
+          "autocorrelation": 8,
+          "activity": 0.022231269210465143,
+          "dominantShare": 0.21932201262240092
+        },
+        {
+          "tick": 4000,
+          "entropy": 0.9617540834320818,
+          "autocorrelation": 8,
+          "activity": 0.022314879549639954,
+          "dominantShare": 0.2196290141995328
+        },
+        {
+          "tick": 4200,
+          "entropy": 0.9602652653627087,
+          "autocorrelation": 8,
+          "activity": 0.02226526615527291,
+          "dominantShare": 0.21886389830757302
+        },
+        {
+          "tick": 4400,
+          "entropy": 0.9613308967224675,
+          "autocorrelation": 8,
+          "activity": 0.022316791197795283,
+          "dominantShare": 0.21826639309605844
+        },
+        {
+          "tick": 4600,
+          "entropy": 0.9584332097203607,
+          "autocorrelation": 8,
+          "activity": 0.022341034189537368,
+          "dominantShare": 0.21779532526255618
+        },
+        {
+          "tick": 4800,
+          "entropy": 0.9602161601778614,
+          "autocorrelation": 8,
+          "activity": 0.022347207988900664,
+          "dominantShare": 0.21871934787715064
+        },
+        {
+          "tick": 5000,
+          "entropy": 0.9570776530969648,
+          "autocorrelation": 8,
+          "activity": 0.022405598591376474,
+          "dominantShare": 0.21747015081263577
+        },
+        {
+          "tick": 5200,
+          "entropy": 0.9564303745391018,
+          "autocorrelation": 8,
+          "activity": 0.02242727411078249,
+          "dominantShare": 0.2200720646433032
+        },
+        {
+          "tick": 5400,
+          "entropy": 0.9542871239333135,
+          "autocorrelation": 8,
+          "activity": 0.0225350121985457,
+          "dominantShare": 0.21897024462345183
+        },
+        {
+          "tick": 5600,
+          "entropy": 0.9538850700244736,
+          "autocorrelation": 8,
+          "activity": 0.022442076848847137,
+          "dominantShare": 0.2213571237192038
+        },
+        {
+          "tick": 5800,
+          "entropy": 0.9543674820824319,
+          "autocorrelation": 8,
+          "activity": 0.022495956330999434,
+          "dominantShare": 0.2211246414937691
+        },
+        {
+          "tick": 6000,
+          "entropy": 0.9531412755419983,
+          "autocorrelation": 8,
+          "activity": 0.022479107063190895,
+          "dominantShare": 0.22119161947733268
+        },
+        {
+          "tick": 6200,
+          "entropy": 0.9531982191066501,
+          "autocorrelation": 8,
+          "activity": 0.02257614000996,
+          "dominantShare": 0.22248174898093437
+        },
+        {
+          "tick": 6400,
+          "entropy": 0.9517893888475222,
+          "autocorrelation": 8,
+          "activity": 0.02248143507893019,
+          "dominantShare": 0.2216278955676687
+        },
+        {
+          "tick": 6600,
+          "entropy": 0.9530237139492524,
+          "autocorrelation": 8,
+          "activity": 0.022586589944012303,
+          "dominantShare": 0.22424869469833464
+        },
+        {
+          "tick": 6800,
+          "entropy": 0.9503762089634412,
+          "autocorrelation": 8,
+          "activity": 0.02250673937658121,
+          "dominantShare": 0.2214996369043183
+        },
+        {
+          "tick": 7000,
+          "entropy": 0.9514628772035065,
+          "autocorrelation": 8,
+          "activity": 0.022621684828038724,
+          "dominantShare": 0.2255785275023019
+        },
+        {
+          "tick": 7200,
+          "entropy": 0.9489112657795533,
+          "autocorrelation": 8,
+          "activity": 0.022573854225356627,
+          "dominantShare": 0.2210378683302059
+        },
+        {
+          "tick": 7400,
+          "entropy": 0.9504599256093806,
+          "autocorrelation": 8,
+          "activity": 0.02270560908095831,
+          "dominantShare": 0.22574818526728196
+        },
+        {
+          "tick": 7600,
+          "entropy": 0.9478005586166728,
+          "autocorrelation": 8,
+          "activity": 0.022602049824058668,
+          "dominantShare": 0.22053540774676117
+        },
+        {
+          "tick": 7800,
+          "entropy": 0.9498635735670441,
+          "autocorrelation": 8,
+          "activity": 0.022695853121376786,
+          "dominantShare": 0.22664138443987158
+        },
+        {
+          "tick": 8000,
+          "entropy": 0.9490348094444787,
+          "autocorrelation": 8,
+          "activity": 0.02263560105814122,
+          "dominantShare": 0.21948716474140828
+        },
+        {
+          "tick": 8200,
+          "entropy": 0.9483795571384765,
+          "autocorrelation": 8,
+          "activity": 0.02266734789975544,
+          "dominantShare": 0.22655823799560793
+        },
+        {
+          "tick": 8400,
+          "entropy": 0.9478285962724329,
+          "autocorrelation": 8,
+          "activity": 0.022657747781750004,
+          "dominantShare": 0.2225326178118996
+        },
+        {
+          "tick": 8600,
+          "entropy": 0.9475450811258073,
+          "autocorrelation": 8,
+          "activity": 0.022666906295398803,
+          "dominantShare": 0.22553493032168648
+        },
+        {
+          "tick": 8800,
+          "entropy": 0.9478889192769286,
+          "autocorrelation": 8,
+          "activity": 0.022680345047774608,
+          "dominantShare": 0.22480277185053593
+        },
+        {
+          "tick": 9000,
+          "entropy": 0.9462190502137748,
+          "autocorrelation": 8,
+          "activity": 0.022681925306869744,
+          "dominantShare": 0.22459060221389637
+        },
+        {
+          "tick": 9200,
+          "entropy": 0.9480638106734928,
+          "autocorrelation": 8,
+          "activity": 0.02272805199419281,
+          "dominantShare": 0.2268922455803044
+        },
+        {
+          "tick": 9400,
+          "entropy": 0.9446884446859891,
+          "autocorrelation": 8,
+          "activity": 0.022715453667842667,
+          "dominantShare": 0.22507687962242828
+        },
+        {
+          "tick": 9600,
+          "entropy": 0.9464899768715597,
+          "autocorrelation": 8,
+          "activity": 0.02276594560248668,
+          "dominantShare": 0.22593326379415157
+        },
+        {
+          "tick": 9800,
+          "entropy": 0.944174059185796,
+          "autocorrelation": 8,
+          "activity": 0.022782021631201133,
+          "dominantShare": 0.2262690458168306
+        },
+        {
+          "tick": 9999,
+          "entropy": 0.9427224047988615,
+          "autocorrelation": 8,
+          "activity": 0.02281965406780273,
+          "dominantShare": 0.2262851108514896
+        }
+      ]
+    },
+    {
+      "params": {
+        "size": 64,
+        "alpha": 0.8,
+        "beta": 1.1,
+        "mu": 0.25,
+        "delta": 0.05,
+        "eps": 0.01,
+        "sigma": 0.002,
+        "gamma": 2,
+        "kappa": 1.5,
+        "lambda": 0.3,
+        "eta": 0.4,
+        "aBar": 0.02,
+        "dt": 0.03333333333333333,
+        "conserve": "simplex",
+        "neighborhood": "vonNeumann",
+        "seed": 1
+      },
+      "score": 0.4375,
+      "scoreBreakdown": {
+        "autocorrelation": 0.4375,
+        "activity": 1,
+        "dominant": 1
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "entropy": 1.525115410487379,
+          "autocorrelation": 1,
+          "activity": 0.030919910229840752,
+          "dominantShare": 0.20070279004903568
+        },
+        {
+          "tick": 200,
+          "entropy": 1.570198346523103,
+          "autocorrelation": 2,
+          "activity": 0.017885319079368855,
+          "dominantShare": 0.2003320967360196
+        },
+        {
+          "tick": 400,
+          "entropy": 1.4403253962612892,
+          "autocorrelation": 4,
+          "activity": 0.01410346313878108,
+          "dominantShare": 0.20246033174635159
+        },
+        {
+          "tick": 600,
+          "entropy": 1.2206114356550322,
+          "autocorrelation": 4,
+          "activity": 0.015514273599023909,
+          "dominantShare": 0.20938612127263312
+        },
+        {
+          "tick": 800,
+          "entropy": 1.0874023997597868,
+          "autocorrelation": 4,
+          "activity": 0.0177375711186869,
+          "dominantShare": 0.21860490124259613
+        },
+        {
+          "tick": 1000,
+          "entropy": 1.024734409884373,
+          "autocorrelation": 4,
+          "activity": 0.018741804272110585,
+          "dominantShare": 0.2176232981205124
+        },
+        {
+          "tick": 1200,
+          "entropy": 0.9997708051259204,
+          "autocorrelation": 4,
+          "activity": 0.01947898006841342,
+          "dominantShare": 0.22337314359417348
+        },
+        {
+          "tick": 1400,
+          "entropy": 0.9854142723371423,
+          "autocorrelation": 4,
+          "activity": 0.019822424073936418,
+          "dominantShare": 0.22086968300917476
+        },
+        {
+          "tick": 1600,
+          "entropy": 0.977314157584444,
+          "autocorrelation": 8,
+          "activity": 0.02005414680274953,
+          "dominantShare": 0.2238853499924113
+        },
+        {
+          "tick": 1800,
+          "entropy": 0.9710504741577642,
+          "autocorrelation": 8,
+          "activity": 0.020191516681165922,
+          "dominantShare": 0.22500615090092568
+        },
+        {
+          "tick": 2000,
+          "entropy": 0.9670227439667182,
+          "autocorrelation": 8,
+          "activity": 0.02036934273303359,
+          "dominantShare": 0.2211789596871564
+        },
+        {
+          "tick": 2200,
+          "entropy": 0.9633807399712163,
+          "autocorrelation": 8,
+          "activity": 0.02042958600043221,
+          "dominantShare": 0.22715537510590522
+        },
+        {
+          "tick": 2400,
+          "entropy": 0.9604742984090399,
+          "autocorrelation": 8,
+          "activity": 0.020579482115806513,
+          "dominantShare": 0.22107272102862208
+        },
+        {
+          "tick": 2600,
+          "entropy": 0.9564104985257146,
+          "autocorrelation": 8,
+          "activity": 0.020708513008457885,
+          "dominantShare": 0.22620268515280406
+        },
+        {
+          "tick": 2800,
+          "entropy": 0.954135330936034,
+          "autocorrelation": 8,
+          "activity": 0.020773264864487828,
+          "dominantShare": 0.22370735435891942
+        },
+        {
+          "tick": 3000,
+          "entropy": 0.9498960044584117,
+          "autocorrelation": 8,
+          "activity": 0.02080236338110808,
+          "dominantShare": 0.22300230988768188
+        },
+        {
+          "tick": 3200,
+          "entropy": 0.9482173592861401,
+          "autocorrelation": 8,
+          "activity": 0.02098666986603348,
+          "dominantShare": 0.22262515993278487
+        },
+        {
+          "tick": 3400,
+          "entropy": 0.945274195299043,
+          "autocorrelation": 8,
+          "activity": 0.020933144460968833,
+          "dominantShare": 0.22116096110454375
+        },
+        {
+          "tick": 3600,
+          "entropy": 0.9455194815300155,
+          "autocorrelation": 8,
+          "activity": 0.021050845824447606,
+          "dominantShare": 0.2225176172606963
+        },
+        {
+          "tick": 3800,
+          "entropy": 0.9422753555343711,
+          "autocorrelation": 8,
+          "activity": 0.02097113543618434,
+          "dominantShare": 0.22000279818092294
+        },
+        {
+          "tick": 4000,
+          "entropy": 0.9429649415627551,
+          "autocorrelation": 8,
+          "activity": 0.021093461517125434,
+          "dominantShare": 0.22177139740664087
+        },
+        {
+          "tick": 4200,
+          "entropy": 0.9412013931105195,
+          "autocorrelation": 8,
+          "activity": 0.020988305271430363,
+          "dominantShare": 0.2203230253031272
+        },
+        {
+          "tick": 4400,
+          "entropy": 0.9433049710231729,
+          "autocorrelation": 8,
+          "activity": 0.021138742881191774,
+          "dominantShare": 0.22257842726249355
+        },
+        {
+          "tick": 4600,
+          "entropy": 0.9394537808283481,
+          "autocorrelation": 8,
+          "activity": 0.021013388507753916,
+          "dominantShare": 0.220611625852829
+        },
+        {
+          "tick": 4800,
+          "entropy": 0.9420987945447806,
+          "autocorrelation": 8,
+          "activity": 0.0211527049139022,
+          "dominantShare": 0.2225713284734505
+        },
+        {
+          "tick": 5000,
+          "entropy": 0.9388528106775571,
+          "autocorrelation": 8,
+          "activity": 0.021134920079134645,
+          "dominantShare": 0.22042022004552297
+        },
+        {
+          "tick": 5200,
+          "entropy": 0.9396635211522801,
+          "autocorrelation": 8,
+          "activity": 0.02112290446029874,
+          "dominantShare": 0.22260477293179015
+        },
+        {
+          "tick": 5400,
+          "entropy": 0.9379423889101409,
+          "autocorrelation": 8,
+          "activity": 0.021222034544280177,
+          "dominantShare": 0.22473461078074308
+        },
+        {
+          "tick": 5600,
+          "entropy": 0.9366038028896857,
+          "autocorrelation": 8,
+          "activity": 0.021162577217921807,
+          "dominantShare": 0.22305294815955234
+        },
+        {
+          "tick": 5800,
+          "entropy": 0.9372219877394413,
+          "autocorrelation": 8,
+          "activity": 0.021361358164199373,
+          "dominantShare": 0.2280266198866121
+        },
+        {
+          "tick": 6000,
+          "entropy": 0.9342113980980944,
+          "autocorrelation": 8,
+          "activity": 0.021153213716615937,
+          "dominantShare": 0.2236483926055408
+        },
+        {
+          "tick": 6200,
+          "entropy": 0.9370884035429929,
+          "autocorrelation": 8,
+          "activity": 0.021398933343334647,
+          "dominantShare": 0.22976750898509907
+        },
+        {
+          "tick": 6400,
+          "entropy": 0.9324006803447504,
+          "autocorrelation": 8,
+          "activity": 0.021236733002751862,
+          "dominantShare": 0.222348964718055
+        },
+        {
+          "tick": 6600,
+          "entropy": 0.9354513425991065,
+          "autocorrelation": 8,
+          "activity": 0.021396937428789897,
+          "dominantShare": 0.2301144814726226
+        },
+        {
+          "tick": 6800,
+          "entropy": 0.9305168499505164,
+          "autocorrelation": 8,
+          "activity": 0.0213559020928642,
+          "dominantShare": 0.22760767643477764
+        },
+        {
+          "tick": 7000,
+          "entropy": 0.9321454657115781,
+          "autocorrelation": 8,
+          "activity": 0.021347581553300188,
+          "dominantShare": 0.22901961585316433
+        },
+        {
+          "tick": 7200,
+          "entropy": 0.9334237807140439,
+          "autocorrelation": 8,
+          "activity": 0.021470839688049637,
+          "dominantShare": 0.2311327839985564
+        },
+        {
+          "tick": 7400,
+          "entropy": 0.9310220918528294,
+          "autocorrelation": 8,
+          "activity": 0.021324040374452125,
+          "dominantShare": 0.22652083993665073
+        },
+        {
+          "tick": 7600,
+          "entropy": 0.933919549060696,
+          "autocorrelation": 8,
+          "activity": 0.021457298365305633,
+          "dominantShare": 0.23269362137007388
+        },
+        {
+          "tick": 7800,
+          "entropy": 0.9296704241790142,
+          "autocorrelation": 8,
+          "activity": 0.021341156939115535,
+          "dominantShare": 0.22339336279571886
+        },
+        {
+          "tick": 8000,
+          "entropy": 0.9312195554950498,
+          "autocorrelation": 8,
+          "activity": 0.021471968997047952,
+          "dominantShare": 0.23323552539450798
+        },
+        {
+          "tick": 8200,
+          "entropy": 0.9290438679244588,
+          "autocorrelation": 8,
+          "activity": 0.021491336129884075,
+          "dominantShare": 0.22830532329230263
+        },
+        {
+          "tick": 8400,
+          "entropy": 0.928119558356239,
+          "autocorrelation": 8,
+          "activity": 0.021384841709163993,
+          "dominantShare": 0.23233988028707397
+        },
+        {
+          "tick": 8600,
+          "entropy": 0.9297168251396272,
+          "autocorrelation": 8,
+          "activity": 0.02162456268524693,
+          "dominantShare": 0.23322850597573552
+        },
+        {
+          "tick": 8800,
+          "entropy": 0.9255190423595517,
+          "autocorrelation": 8,
+          "activity": 0.02141015535130464,
+          "dominantShare": 0.23142156862520746
+        },
+        {
+          "tick": 9000,
+          "entropy": 0.9302672188585026,
+          "autocorrelation": 8,
+          "activity": 0.02163686081553351,
+          "dominantShare": 0.2366446030116709
+        },
+        {
+          "tick": 9200,
+          "entropy": 0.9256482385451076,
+          "autocorrelation": 8,
+          "activity": 0.021477176562598288,
+          "dominantShare": 0.22900730621764476
+        },
+        {
+          "tick": 9400,
+          "entropy": 0.9281697295681407,
+          "autocorrelation": 8,
+          "activity": 0.021690514881015588,
+          "dominantShare": 0.238560260534741
+        },
+        {
+          "tick": 9600,
+          "entropy": 0.9238368154560183,
+          "autocorrelation": 8,
+          "activity": 0.021587392189530874,
+          "dominantShare": 0.22894954770081433
+        },
+        {
+          "tick": 9800,
+          "entropy": 0.9245449628958046,
+          "autocorrelation": 8,
+          "activity": 0.021636533383343703,
+          "dominantShare": 0.23870580657779872
+        },
+        {
+          "tick": 9999,
+          "entropy": 0.9246302842793803,
+          "autocorrelation": 8,
+          "activity": 0.02171354682946003,
+          "dominantShare": 0.23519690477433078
+        }
+      ]
+    },
+    {
+      "params": {
+        "size": 64,
+        "alpha": 1,
+        "beta": 0.7,
+        "mu": 0.15,
+        "delta": 0.05,
+        "eps": 0.01,
+        "sigma": 0.002,
+        "gamma": 2,
+        "kappa": 1.5,
+        "lambda": 0.3,
+        "eta": 0.4,
+        "aBar": 0.02,
+        "dt": 0.03333333333333333,
+        "conserve": "simplex",
+        "neighborhood": "vonNeumann",
+        "seed": 1
+      },
+      "score": 0.4375,
+      "scoreBreakdown": {
+        "autocorrelation": 0.4375,
+        "activity": 1,
+        "dominant": 1
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "entropy": 1.524520753946905,
+          "autocorrelation": 1,
+          "activity": 0.014656878514074378,
+          "dominantShare": 0.20070272664725053
+        },
+        {
+          "tick": 200,
+          "entropy": 1.5728964352946695,
+          "autocorrelation": 2,
+          "activity": 0.008072558734056656,
+          "dominantShare": 0.20024963393188955
+        },
+        {
+          "tick": 400,
+          "entropy": 1.5170192051395317,
+          "autocorrelation": 2,
+          "activity": 0.01291417220772928,
+          "dominantShare": 0.20079114629834294
+        },
+        {
+          "tick": 600,
+          "entropy": 1.3755643100559298,
+          "autocorrelation": 4,
+          "activity": 0.02057760100899486,
+          "dominantShare": 0.20540407609457745
+        },
+        {
+          "tick": 800,
+          "entropy": 1.211173956787811,
+          "autocorrelation": 4,
+          "activity": 0.026120689984281853,
+          "dominantShare": 0.21100796370720998
+        },
+        {
+          "tick": 1000,
+          "entropy": 1.108561972652856,
+          "autocorrelation": 4,
+          "activity": 0.028950692581588555,
+          "dominantShare": 0.2177920308940795
+        },
+        {
+          "tick": 1200,
+          "entropy": 1.0560319091687418,
+          "autocorrelation": 4,
+          "activity": 0.029993081411589628,
+          "dominantShare": 0.2163252251872918
+        },
+        {
+          "tick": 1400,
+          "entropy": 1.0291920573937003,
+          "autocorrelation": 4,
+          "activity": 0.030805199653173077,
+          "dominantShare": 0.2177640862338739
+        },
+        {
+          "tick": 1600,
+          "entropy": 1.0175746095906717,
+          "autocorrelation": 4,
+          "activity": 0.03126349123056116,
+          "dominantShare": 0.22064339365325314
+        },
+        {
+          "tick": 1800,
+          "entropy": 1.0080013570526485,
+          "autocorrelation": 4,
+          "activity": 0.03130280337154545,
+          "dominantShare": 0.2203457874834891
+        },
+        {
+          "tick": 2000,
+          "entropy": 1.004609309011155,
+          "autocorrelation": 4,
+          "activity": 0.03155384771196168,
+          "dominantShare": 0.21765347045688266
+        },
+        {
+          "tick": 2200,
+          "entropy": 1.0014452208132842,
+          "autocorrelation": 4,
+          "activity": 0.03159709627720986,
+          "dominantShare": 0.2240124040812752
+        },
+        {
+          "tick": 2400,
+          "entropy": 0.9996436040010811,
+          "autocorrelation": 4,
+          "activity": 0.03158302953352177,
+          "dominantShare": 0.2222183217821877
+        },
+        {
+          "tick": 2600,
+          "entropy": 0.9989539171477277,
+          "autocorrelation": 4,
+          "activity": 0.03166987628299012,
+          "dominantShare": 0.21999368979274148
+        },
+        {
+          "tick": 2800,
+          "entropy": 0.9971311862470045,
+          "autocorrelation": 4,
+          "activity": 0.03170191816764145,
+          "dominantShare": 0.2246303198635649
+        },
+        {
+          "tick": 3000,
+          "entropy": 0.9957827685832339,
+          "autocorrelation": 4,
+          "activity": 0.03185374580652933,
+          "dominantShare": 0.21963333785909356
+        },
+        {
+          "tick": 3200,
+          "entropy": 0.9935370916897109,
+          "autocorrelation": 4,
+          "activity": 0.03184263231116802,
+          "dominantShare": 0.22032485989457806
+        },
+        {
+          "tick": 3400,
+          "entropy": 0.9931589054205344,
+          "autocorrelation": 8,
+          "activity": 0.03198748232046,
+          "dominantShare": 0.22231819740137881
+        },
+        {
+          "tick": 3600,
+          "entropy": 0.9928245032260844,
+          "autocorrelation": 8,
+          "activity": 0.03203644962252383,
+          "dominantShare": 0.21680192990078184
+        },
+        {
+          "tick": 3800,
+          "entropy": 0.9877892666354224,
+          "autocorrelation": 8,
+          "activity": 0.032008627510322185,
+          "dominantShare": 0.22113972407339233
+        },
+        {
+          "tick": 4000,
+          "entropy": 0.9880443648561829,
+          "autocorrelation": 8,
+          "activity": 0.03219553205053671,
+          "dominantShare": 0.22215401838618298
+        },
+        {
+          "tick": 4200,
+          "entropy": 0.9869165705161629,
+          "autocorrelation": 8,
+          "activity": 0.03212947940482991,
+          "dominantShare": 0.21555877921838285
+        },
+        {
+          "tick": 4400,
+          "entropy": 0.984041466242902,
+          "autocorrelation": 8,
+          "activity": 0.03221514330368791,
+          "dominantShare": 0.22029715609460698
+        },
+        {
+          "tick": 4600,
+          "entropy": 0.9852864130424713,
+          "autocorrelation": 8,
+          "activity": 0.032316122888801146,
+          "dominantShare": 0.22033723149406725
+        },
+        {
+          "tick": 4800,
+          "entropy": 0.9842554471252866,
+          "autocorrelation": 8,
+          "activity": 0.0321592949302385,
+          "dominantShare": 0.2150235616057803
+        },
+        {
+          "tick": 5000,
+          "entropy": 0.9835553553049121,
+          "autocorrelation": 8,
+          "activity": 0.03222532227346164,
+          "dominantShare": 0.21926375070252568
+        },
+        {
+          "tick": 5200,
+          "entropy": 0.9844271291389224,
+          "autocorrelation": 8,
+          "activity": 0.032318869597133926,
+          "dominantShare": 0.2196597603408521
+        },
+        {
+          "tick": 5400,
+          "entropy": 0.9816008945810147,
+          "autocorrelation": 8,
+          "activity": 0.03221530130986139,
+          "dominantShare": 0.2159332073536513
+        },
+        {
+          "tick": 5600,
+          "entropy": 0.9829075683734924,
+          "autocorrelation": 8,
+          "activity": 0.03227870354407969,
+          "dominantShare": 0.21949858981482118
+        },
+        {
+          "tick": 5800,
+          "entropy": 0.9837633567227521,
+          "autocorrelation": 8,
+          "activity": 0.032225778555698525,
+          "dominantShare": 0.2188613331522804
+        },
+        {
+          "tick": 6000,
+          "entropy": 0.9830188282855038,
+          "autocorrelation": 8,
+          "activity": 0.03224326506017405,
+          "dominantShare": 0.21626691443048407
+        },
+        {
+          "tick": 6200,
+          "entropy": 0.9846864634774457,
+          "autocorrelation": 8,
+          "activity": 0.03229107736342485,
+          "dominantShare": 0.21854189636279653
+        },
+        {
+          "tick": 6400,
+          "entropy": 0.9824634578231313,
+          "autocorrelation": 8,
+          "activity": 0.03229861724446437,
+          "dominantShare": 0.21717809700956003
+        },
+        {
+          "tick": 6600,
+          "entropy": 0.9821118159362557,
+          "autocorrelation": 8,
+          "activity": 0.03229225575819328,
+          "dominantShare": 0.21607397706544185
+        },
+        {
+          "tick": 6800,
+          "entropy": 0.9816471071838239,
+          "autocorrelation": 8,
+          "activity": 0.032364529748633686,
+          "dominantShare": 0.21743319955817664
+        },
+        {
+          "tick": 7000,
+          "entropy": 0.9809413089342628,
+          "autocorrelation": 8,
+          "activity": 0.032287501105884076,
+          "dominantShare": 0.2162252059657439
+        },
+        {
+          "tick": 7200,
+          "entropy": 0.9812076381802666,
+          "autocorrelation": 8,
+          "activity": 0.032311788414745024,
+          "dominantShare": 0.21672093187967878
+        },
+        {
+          "tick": 7400,
+          "entropy": 0.9816073075270292,
+          "autocorrelation": 8,
+          "activity": 0.032398296879250665,
+          "dominantShare": 0.21872476370406613
+        },
+        {
+          "tick": 7600,
+          "entropy": 0.9798432585443625,
+          "autocorrelation": 8,
+          "activity": 0.03228287329011437,
+          "dominantShare": 0.2170215054473945
+        },
+        {
+          "tick": 7800,
+          "entropy": 0.9813123161216891,
+          "autocorrelation": 8,
+          "activity": 0.03235914653191685,
+          "dominantShare": 0.22006999677586214
+        },
+        {
+          "tick": 8000,
+          "entropy": 0.9812059522202017,
+          "autocorrelation": 8,
+          "activity": 0.03236915206616686,
+          "dominantShare": 0.22104775397100096
+        },
+        {
+          "tick": 8200,
+          "entropy": 0.9807506556359394,
+          "autocorrelation": 8,
+          "activity": 0.03221758750339632,
+          "dominantShare": 0.21763877376102003
+        },
+        {
+          "tick": 8400,
+          "entropy": 0.9797127735213331,
+          "autocorrelation": 8,
+          "activity": 0.03234519934596847,
+          "dominantShare": 0.2242399263637509
+        },
+        {
+          "tick": 8600,
+          "entropy": 0.9819349962782342,
+          "autocorrelation": 8,
+          "activity": 0.03237498407008843,
+          "dominantShare": 0.2229701227855232
+        },
+        {
+          "tick": 8800,
+          "entropy": 0.9795159355386047,
+          "autocorrelation": 8,
+          "activity": 0.03222741828028575,
+          "dominantShare": 0.2183635784995901
+        },
+        {
+          "tick": 9000,
+          "entropy": 0.9830168130983359,
+          "autocorrelation": 8,
+          "activity": 0.03239130246277,
+          "dominantShare": 0.22756996957082443
+        },
+        {
+          "tick": 9200,
+          "entropy": 0.9825037032193178,
+          "autocorrelation": 8,
+          "activity": 0.03239906797546155,
+          "dominantShare": 0.22562378542154438
+        },
+        {
+          "tick": 9400,
+          "entropy": 0.9790558847704326,
+          "autocorrelation": 8,
+          "activity": 0.032312096849977934,
+          "dominantShare": 0.2234020828257813
+        },
+        {
+          "tick": 9600,
+          "entropy": 0.98039906745719,
+          "autocorrelation": 8,
+          "activity": 0.032530510099945786,
+          "dominantShare": 0.23152848322687536
+        },
+        {
+          "tick": 9800,
+          "entropy": 0.9777547937162842,
+          "autocorrelation": 8,
+          "activity": 0.03253870433843531,
+          "dominantShare": 0.22698393822861795
+        },
+        {
+          "tick": 9999,
+          "entropy": 0.9769130405834007,
+          "autocorrelation": 8,
+          "activity": 0.03244113495827605,
+          "dominantShare": 0.22674658689191762
+        }
+      ]
+    },
+    {
+      "params": {
+        "size": 64,
+        "alpha": 1,
+        "beta": 0.7,
+        "mu": 0.25,
+        "delta": 0.05,
+        "eps": 0.01,
+        "sigma": 0.002,
+        "gamma": 2,
+        "kappa": 1.5,
+        "lambda": 0.3,
+        "eta": 0.4,
+        "aBar": 0.02,
+        "dt": 0.03333333333333333,
+        "conserve": "simplex",
+        "neighborhood": "vonNeumann",
+        "seed": 1
+      },
+      "score": 0.4375,
+      "scoreBreakdown": {
+        "autocorrelation": 0.4375,
+        "activity": 1,
+        "dominant": 1
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "entropy": 1.5251212980273072,
+          "autocorrelation": 1,
+          "activity": 0.020460745271066116,
+          "dominantShare": 0.20070271041731758
+        },
+        {
+          "tick": 200,
+          "entropy": 1.5852795298716147,
+          "autocorrelation": 2,
+          "activity": 0.007209139972133016,
+          "dominantShare": 0.2001365040705423
+        },
+        {
+          "tick": 400,
+          "entropy": 1.5362233693137737,
+          "autocorrelation": 4,
+          "activity": 0.011858894861802582,
+          "dominantShare": 0.20064316524531023
+        },
+        {
+          "tick": 600,
+          "entropy": 1.4058734110928528,
+          "autocorrelation": 4,
+          "activity": 0.019617840079035886,
+          "dominantShare": 0.20552968204223987
+        },
+        {
+          "tick": 800,
+          "entropy": 1.2416101056368936,
+          "autocorrelation": 4,
+          "activity": 0.025606800733157797,
+          "dominantShare": 0.21038834151686814
+        },
+        {
+          "tick": 1000,
+          "entropy": 1.1353968890869144,
+          "autocorrelation": 4,
+          "activity": 0.028729039499125975,
+          "dominantShare": 0.21749499022887164
+        },
+        {
+          "tick": 1200,
+          "entropy": 1.0800162847242045,
+          "autocorrelation": 4,
+          "activity": 0.029943358271907528,
+          "dominantShare": 0.21950082119658174
+        },
+        {
+          "tick": 1400,
+          "entropy": 1.0523358669813412,
+          "autocorrelation": 4,
+          "activity": 0.030752569089031567,
+          "dominantShare": 0.21532615998959415
+        },
+        {
+          "tick": 1600,
+          "entropy": 1.0374393151201218,
+          "autocorrelation": 8,
+          "activity": 0.031202449515149056,
+          "dominantShare": 0.22131249009279552
+        },
+        {
+          "tick": 1800,
+          "entropy": 1.0271616563655683,
+          "autocorrelation": 8,
+          "activity": 0.03152088059584912,
+          "dominantShare": 0.22203359097309994
+        },
+        {
+          "tick": 2000,
+          "entropy": 1.020140435822839,
+          "autocorrelation": 8,
+          "activity": 0.03178930421267978,
+          "dominantShare": 0.2169440645471452
+        },
+        {
+          "tick": 2200,
+          "entropy": 1.0127740297659078,
+          "autocorrelation": 8,
+          "activity": 0.03186831372624965,
+          "dominantShare": 0.22225972066259025
+        },
+        {
+          "tick": 2400,
+          "entropy": 1.0102569364546734,
+          "autocorrelation": 8,
+          "activity": 0.032019956027966145,
+          "dominantShare": 0.2192963923169976
+        },
+        {
+          "tick": 2600,
+          "entropy": 1.0067511880323932,
+          "autocorrelation": 8,
+          "activity": 0.03206540287487769,
+          "dominantShare": 0.21736168731338368
+        },
+        {
+          "tick": 2800,
+          "entropy": 1.0044496682500916,
+          "autocorrelation": 8,
+          "activity": 0.03207400972348751,
+          "dominantShare": 0.2199005574408357
+        },
+        {
+          "tick": 3000,
+          "entropy": 1.0026631666136385,
+          "autocorrelation": 8,
+          "activity": 0.03221671692574546,
+          "dominantShare": 0.21693641271360553
+        },
+        {
+          "tick": 3200,
+          "entropy": 1.0000691049463712,
+          "autocorrelation": 8,
+          "activity": 0.03215154038548462,
+          "dominantShare": 0.21566055614164617
+        },
+        {
+          "tick": 3400,
+          "entropy": 0.9997254084511337,
+          "autocorrelation": 8,
+          "activity": 0.03231112980040507,
+          "dominantShare": 0.21715525874764485
+        },
+        {
+          "tick": 3600,
+          "entropy": 0.9985427375857149,
+          "autocorrelation": 8,
+          "activity": 0.03239621754050859,
+          "dominantShare": 0.21615255338141315
+        },
+        {
+          "tick": 3800,
+          "entropy": 0.9938591580611834,
+          "autocorrelation": 8,
+          "activity": 0.03236009570355236,
+          "dominantShare": 0.21421597279143523
+        },
+        {
+          "tick": 4000,
+          "entropy": 0.9922303017167665,
+          "autocorrelation": 8,
+          "activity": 0.032511516033082444,
+          "dominantShare": 0.21563275902211476
+        },
+        {
+          "tick": 4200,
+          "entropy": 0.9936054416194775,
+          "autocorrelation": 8,
+          "activity": 0.03252796615254283,
+          "dominantShare": 0.21629406081513025
+        },
+        {
+          "tick": 4400,
+          "entropy": 0.9882953712271657,
+          "autocorrelation": 8,
+          "activity": 0.03247123872233715,
+          "dominantShare": 0.21496127006565866
+        },
+        {
+          "tick": 4600,
+          "entropy": 0.9891037489351935,
+          "autocorrelation": 8,
+          "activity": 0.03264664713151433,
+          "dominantShare": 0.21443102452549656
+        },
+        {
+          "tick": 4800,
+          "entropy": 0.9894576039695163,
+          "autocorrelation": 8,
+          "activity": 0.03256541190808093,
+          "dominantShare": 0.2150705958941539
+        },
+        {
+          "tick": 5000,
+          "entropy": 0.9863691040827137,
+          "autocorrelation": 8,
+          "activity": 0.03250686923468038,
+          "dominantShare": 0.2146562720389773
+        },
+        {
+          "tick": 5200,
+          "entropy": 0.9877199512072479,
+          "autocorrelation": 8,
+          "activity": 0.03268840185660338,
+          "dominantShare": 0.21635541014443493
+        },
+        {
+          "tick": 5400,
+          "entropy": 0.9862434479106815,
+          "autocorrelation": 8,
+          "activity": 0.032596376082551615,
+          "dominantShare": 0.21595176457685095
+        },
+        {
+          "tick": 5600,
+          "entropy": 0.9850676389052562,
+          "autocorrelation": 8,
+          "activity": 0.032568534820484274,
+          "dominantShare": 0.21472808672155175
+        },
+        {
+          "tick": 5800,
+          "entropy": 0.9865964344148638,
+          "autocorrelation": 8,
+          "activity": 0.03261384537302092,
+          "dominantShare": 0.21914478084371947
+        },
+        {
+          "tick": 6000,
+          "entropy": 0.9860925157297891,
+          "autocorrelation": 8,
+          "activity": 0.032664861608168394,
+          "dominantShare": 0.22085078765712574
+        },
+        {
+          "tick": 6200,
+          "entropy": 0.9859025228178536,
+          "autocorrelation": 8,
+          "activity": 0.03257745443534077,
+          "dominantShare": 0.21598191317811533
+        },
+        {
+          "tick": 6400,
+          "entropy": 0.985088918346196,
+          "autocorrelation": 8,
+          "activity": 0.03266272624841804,
+          "dominantShare": 0.22218521631668153
+        },
+        {
+          "tick": 6600,
+          "entropy": 0.9865761408138195,
+          "autocorrelation": 8,
+          "activity": 0.032642333025819426,
+          "dominantShare": 0.22382873590167573
+        },
+        {
+          "tick": 6800,
+          "entropy": 0.9837257096408113,
+          "autocorrelation": 8,
+          "activity": 0.032669395807261026,
+          "dominantShare": 0.21676762923499127
+        },
+        {
+          "tick": 7000,
+          "entropy": 0.9836990012270654,
+          "autocorrelation": 8,
+          "activity": 0.03269943025736666,
+          "dominantShare": 0.22553916926423434
+        },
+        {
+          "tick": 7200,
+          "entropy": 0.9836089019211129,
+          "autocorrelation": 8,
+          "activity": 0.03270962979263459,
+          "dominantShare": 0.22619435358570522
+        },
+        {
+          "tick": 7400,
+          "entropy": 0.9811105924002235,
+          "autocorrelation": 8,
+          "activity": 0.0327102957654688,
+          "dominantShare": 0.21796155539154105
+        },
+        {
+          "tick": 7600,
+          "entropy": 0.9813089686654383,
+          "autocorrelation": 8,
+          "activity": 0.0328478191480599,
+          "dominantShare": 0.22754049820776245
+        },
+        {
+          "tick": 7800,
+          "entropy": 0.9817518781475127,
+          "autocorrelation": 8,
+          "activity": 0.03283945633074836,
+          "dominantShare": 0.22715538056792717
+        },
+        {
+          "tick": 8000,
+          "entropy": 0.9781947274938662,
+          "autocorrelation": 8,
+          "activity": 0.03277962837853465,
+          "dominantShare": 0.21865677594828448
+        },
+        {
+          "tick": 8200,
+          "entropy": 0.9792027036751707,
+          "autocorrelation": 8,
+          "activity": 0.0328796865055665,
+          "dominantShare": 0.2286234574190078
+        },
+        {
+          "tick": 8400,
+          "entropy": 0.9786098964778519,
+          "autocorrelation": 8,
+          "activity": 0.03284662954479245,
+          "dominantShare": 0.22819355911458894
+        },
+        {
+          "tick": 8600,
+          "entropy": 0.9772654319593577,
+          "autocorrelation": 8,
+          "activity": 0.03282858420777757,
+          "dominantShare": 0.21981734890746152
+        },
+        {
+          "tick": 8800,
+          "entropy": 0.978231220649639,
+          "autocorrelation": 8,
+          "activity": 0.032966037664436953,
+          "dominantShare": 0.22995907095431178
+        },
+        {
+          "tick": 9000,
+          "entropy": 0.9767115827850357,
+          "autocorrelation": 8,
+          "activity": 0.032946424867191126,
+          "dominantShare": 0.22695792272813464
+        },
+        {
+          "tick": 9200,
+          "entropy": 0.9760206858410382,
+          "autocorrelation": 8,
+          "activity": 0.03290532765811349,
+          "dominantShare": 0.22029366698089703
+        },
+        {
+          "tick": 9400,
+          "entropy": 0.9767178662802144,
+          "autocorrelation": 8,
+          "activity": 0.03300782451367468,
+          "dominantShare": 0.2301173810960857
+        },
+        {
+          "tick": 9600,
+          "entropy": 0.9759796702502362,
+          "autocorrelation": 8,
+          "activity": 0.03288566803382764,
+          "dominantShare": 0.22580479857368654
+        },
+        {
+          "tick": 9800,
+          "entropy": 0.9749235382990759,
+          "autocorrelation": 8,
+          "activity": 0.03294922521263288,
+          "dominantShare": 0.2222618092930848
+        },
+        {
+          "tick": 9999,
+          "entropy": 0.97559822938623,
+          "autocorrelation": 8,
+          "activity": 0.033000352745034434,
+          "dominantShare": 0.23018312315653944
+        }
+      ]
+    },
+    {
+      "params": {
+        "size": 64,
+        "alpha": 1,
+        "beta": 0.9,
+        "mu": 0.25,
+        "delta": 0.05,
+        "eps": 0.01,
+        "sigma": 0.002,
+        "gamma": 2,
+        "kappa": 1.5,
+        "lambda": 0.3,
+        "eta": 0.4,
+        "aBar": 0.02,
+        "dt": 0.03333333333333333,
+        "conserve": "simplex",
+        "neighborhood": "vonNeumann",
+        "seed": 1
+      },
+      "score": 0.4375,
+      "scoreBreakdown": {
+        "autocorrelation": 0.4375,
+        "activity": 1,
+        "dominant": 1
+      },
+      "samples": [
+        {
+          "tick": 0,
+          "entropy": 1.5251233413200447,
+          "autocorrelation": 1,
+          "activity": 0.022658313297711175,
+          "dominantShare": 0.20070188193221838
+        },
+        {
+          "tick": 200,
+          "entropy": 1.5773317210985973,
+          "autocorrelation": 2,
+          "activity": 0.007067982571669518,
+          "dominantShare": 0.20015032371975394
+        },
+        {
+          "tick": 400,
+          "entropy": 1.4860242004430517,
+          "autocorrelation": 4,
+          "activity": 0.013237204205211128,
+          "dominantShare": 0.20190175216907846
+        },
+        {
+          "tick": 600,
+          "entropy": 1.2939610151311056,
+          "autocorrelation": 4,
+          "activity": 0.0213593121156066,
+          "dominantShare": 0.20770947210448476
+        },
+        {
+          "tick": 800,
+          "entropy": 1.1410362597064507,
+          "autocorrelation": 4,
+          "activity": 0.026202359323178825,
+          "dominantShare": 0.21660768544021725
+        },
+        {
+          "tick": 1000,
+          "entropy": 1.06480844972948,
+          "autocorrelation": 4,
+          "activity": 0.0280258717213826,
+          "dominantShare": 0.2171340497002472
+        },
+        {
+          "tick": 1200,
+          "entropy": 1.03221892741673,
+          "autocorrelation": 4,
+          "activity": 0.029018025417258286,
+          "dominantShare": 0.21777348382907213
+        },
+        {
+          "tick": 1400,
+          "entropy": 1.0156049174550594,
+          "autocorrelation": 4,
+          "activity": 0.02949924743535348,
+          "dominantShare": 0.222929654238047
+        },
+        {
+          "tick": 1600,
+          "entropy": 1.0072892617956624,
+          "autocorrelation": 8,
+          "activity": 0.029769610249104517,
+          "dominantShare": 0.2175064245117766
+        },
+        {
+          "tick": 1800,
+          "entropy": 1.000723504105344,
+          "autocorrelation": 8,
+          "activity": 0.0299675683028795,
+          "dominantShare": 0.22165148234990584
+        },
+        {
+          "tick": 2000,
+          "entropy": 0.9957241110543177,
+          "autocorrelation": 8,
+          "activity": 0.03013190572323765,
+          "dominantShare": 0.22277377231124085
+        },
+        {
+          "tick": 2200,
+          "entropy": 0.9913266261254694,
+          "autocorrelation": 8,
+          "activity": 0.030320532911957798,
+          "dominantShare": 0.21685725438530554
+        },
+        {
+          "tick": 2400,
+          "entropy": 0.986787378234322,
+          "autocorrelation": 8,
+          "activity": 0.030426808155084473,
+          "dominantShare": 0.22141869019932803
+        },
+        {
+          "tick": 2600,
+          "entropy": 0.9839267030696079,
+          "autocorrelation": 8,
+          "activity": 0.030514662099108136,
+          "dominantShare": 0.21795363592205885
+        },
+        {
+          "tick": 2800,
+          "entropy": 0.981443308751455,
+          "autocorrelation": 8,
+          "activity": 0.030603428423830792,
+          "dominantShare": 0.21653448679505916
+        },
+        {
+          "tick": 3000,
+          "entropy": 0.9795941807191705,
+          "autocorrelation": 8,
+          "activity": 0.03075211682846657,
+          "dominantShare": 0.21815160576816175
+        },
+        {
+          "tick": 3200,
+          "entropy": 0.9759834886539416,
+          "autocorrelation": 8,
+          "activity": 0.030722682429825454,
+          "dominantShare": 0.21420729340657396
+        },
+        {
+          "tick": 3400,
+          "entropy": 0.9756190602075304,
+          "autocorrelation": 8,
+          "activity": 0.030801604501846214,
+          "dominantShare": 0.21511846275432023
+        },
+        {
+          "tick": 3600,
+          "entropy": 0.9745168265252278,
+          "autocorrelation": 8,
+          "activity": 0.030859147996125103,
+          "dominantShare": 0.21641525396913952
+        },
+        {
+          "tick": 3800,
+          "entropy": 0.9721574245936492,
+          "autocorrelation": 8,
+          "activity": 0.030791354281120675,
+          "dominantShare": 0.21411919706350702
+        },
+        {
+          "tick": 4000,
+          "entropy": 0.9732771727850091,
+          "autocorrelation": 8,
+          "activity": 0.031014891010727297,
+          "dominantShare": 0.214807765805487
+        },
+        {
+          "tick": 4200,
+          "entropy": 0.9724596339019563,
+          "autocorrelation": 8,
+          "activity": 0.030924334280200583,
+          "dominantShare": 0.21718008191494098
+        },
+        {
+          "tick": 4400,
+          "entropy": 0.9690942319005601,
+          "autocorrelation": 8,
+          "activity": 0.030956132899632394,
+          "dominantShare": 0.21555610322124785
+        },
+        {
+          "tick": 4600,
+          "entropy": 0.9716296178099536,
+          "autocorrelation": 8,
+          "activity": 0.0311132503608178,
+          "dominantShare": 0.2161841392683017
+        },
+        {
+          "tick": 4800,
+          "entropy": 0.9668757037844068,
+          "autocorrelation": 8,
+          "activity": 0.031028266408497984,
+          "dominantShare": 0.21904759914073324
+        },
+        {
+          "tick": 5000,
+          "entropy": 0.9665169846676512,
+          "autocorrelation": 8,
+          "activity": 0.031203642737864357,
+          "dominantShare": 0.21809817808771026
+        },
+        {
+          "tick": 5200,
+          "entropy": 0.9661309215969014,
+          "autocorrelation": 8,
+          "activity": 0.031201226128757753,
+          "dominantShare": 0.21680413641041918
+        },
+        {
+          "tick": 5400,
+          "entropy": 0.9624676464502602,
+          "autocorrelation": 8,
+          "activity": 0.031110756106500048,
+          "dominantShare": 0.22038061934380582
+        },
+        {
+          "tick": 5600,
+          "entropy": 0.964189227888906,
+          "autocorrelation": 8,
+          "activity": 0.03130174907244054,
+          "dominantShare": 0.22295759468485998
+        },
+        {
+          "tick": 5800,
+          "entropy": 0.9640307992326863,
+          "autocorrelation": 8,
+          "activity": 0.03118529862365449,
+          "dominantShare": 0.2181596869333573
+        },
+        {
+          "tick": 6000,
+          "entropy": 0.9619325098052068,
+          "autocorrelation": 8,
+          "activity": 0.031133350245795555,
+          "dominantShare": 0.22383757907716229
+        },
+        {
+          "tick": 6200,
+          "entropy": 0.9645740296205604,
+          "autocorrelation": 8,
+          "activity": 0.031326402338208936,
+          "dominantShare": 0.22632360808245355
+        },
+        {
+          "tick": 6400,
+          "entropy": 0.9630888663564037,
+          "autocorrelation": 8,
+          "activity": 0.031160246075501163,
+          "dominantShare": 0.21926512481461624
+        },
+        {
+          "tick": 6600,
+          "entropy": 0.9620117428228141,
+          "autocorrelation": 8,
+          "activity": 0.03121109004024447,
+          "dominantShare": 0.22757838945914255
+        },
+        {
+          "tick": 6800,
+          "entropy": 0.9630775046919614,
+          "autocorrelation": 8,
+          "activity": 0.031331900925181344,
+          "dominantShare": 0.22689884976216468
+        },
+        {
+          "tick": 7000,
+          "entropy": 0.9600328846052419,
+          "autocorrelation": 8,
+          "activity": 0.031263279340066674,
+          "dominantShare": 0.2229752960542455
+        },
+        {
+          "tick": 7200,
+          "entropy": 0.9591351744621005,
+          "autocorrelation": 8,
+          "activity": 0.031360856834339756,
+          "dominantShare": 0.23093881533852315
+        },
+        {
+          "tick": 7400,
+          "entropy": 0.9599942273012255,
+          "autocorrelation": 8,
+          "activity": 0.03138804653849547,
+          "dominantShare": 0.22287461968378341
+        },
+        {
+          "tick": 7600,
+          "entropy": 0.958277684635975,
+          "autocorrelation": 8,
+          "activity": 0.03126335935434099,
+          "dominantShare": 0.22700827817042812
+        },
+        {
+          "tick": 7800,
+          "entropy": 0.9598600422595298,
+          "autocorrelation": 8,
+          "activity": 0.03139985955874636,
+          "dominantShare": 0.2334553849512105
+        },
+        {
+          "tick": 8000,
+          "entropy": 0.960398877268323,
+          "autocorrelation": 8,
+          "activity": 0.0313499108265205,
+          "dominantShare": 0.21956970088818467
+        },
+        {
+          "tick": 8200,
+          "entropy": 0.9580389206745028,
+          "autocorrelation": 8,
+          "activity": 0.031287150345349346,
+          "dominantShare": 0.23252089325035574
+        },
+        {
+          "tick": 8400,
+          "entropy": 0.9587592670607196,
+          "autocorrelation": 8,
+          "activity": 0.03142212021185742,
+          "dominantShare": 0.23120444745926194
+        },
+        {
+          "tick": 8600,
+          "entropy": 0.9578339687642095,
+          "autocorrelation": 8,
+          "activity": 0.03127564204640976,
+          "dominantShare": 0.22465886895968
+        },
+        {
+          "tick": 8800,
+          "entropy": 0.95867149001636,
+          "autocorrelation": 8,
+          "activity": 0.031384267488704154,
+          "dominantShare": 0.23622215301545868
+        },
+        {
+          "tick": 9000,
+          "entropy": 0.9588326948025654,
+          "autocorrelation": 8,
+          "activity": 0.031310523661261414,
+          "dominantShare": 0.22516450538658977
+        },
+        {
+          "tick": 9200,
+          "entropy": 0.958610001322567,
+          "autocorrelation": 8,
+          "activity": 0.03131453721084654,
+          "dominantShare": 0.23137023192166706
+        },
+        {
+          "tick": 9400,
+          "entropy": 0.9594284243097828,
+          "autocorrelation": 8,
+          "activity": 0.03136441903853893,
+          "dominantShare": 0.23630336135268548
+        },
+        {
+          "tick": 9600,
+          "entropy": 0.9580235328577319,
+          "autocorrelation": 8,
+          "activity": 0.03136543026818117,
+          "dominantShare": 0.22160714447703578
+        },
+        {
+          "tick": 9800,
+          "entropy": 0.9576768478065403,
+          "autocorrelation": 8,
+          "activity": 0.03142790257464867,
+          "dominantShare": 0.23680372452668746
+        },
+        {
+          "tick": 9999,
+          "entropy": 0.9561152127451119,
+          "autocorrelation": 8,
+          "activity": 0.031445122771685874,
+          "dominantShare": 0.2318927070282224
+        }
+      ]
+    }
+  ]
+}
