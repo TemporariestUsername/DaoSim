@@ -1,10 +1,12 @@
 import type { Field } from '../sim/field';
-import { cellColor, type PaletteMode } from '../sim/color';
+import type { PaletteMode } from '../sim/color';
+import { paintFieldPixels } from './paintField';
 
 /**
  * One field painted at 1px/cell into an offscreen canvas — the shared
  * primitive under both the single-scale Renderer (gallery) and the
- * camera-aware SceneRenderer (main app).
+ * camera-aware SceneRenderer (main app). Pixels can come from a local
+ * Field (update) or from a buffer painted in the sim worker (setPixels).
  */
 export class FieldLayer {
   readonly canvas: HTMLCanvasElement;
@@ -24,22 +26,13 @@ export class FieldLayer {
   }
 
   update(field: Field, paletteMode: PaletteMode = 'elemental'): void {
-    const n = field.size * field.size;
-    const data = this.imageData.data;
-    const weights: [number, number, number, number, number] = [0, 0, 0, 0, 0];
-    for (let idx = 0; idx < n; idx++) {
-      weights[0] = field.w[0][idx];
-      weights[1] = field.w[1][idx];
-      weights[2] = field.w[2][idx];
-      weights[3] = field.w[3][idx];
-      weights[4] = field.w[4][idx];
-      const [r, g, b] = cellColor(weights, field.p[idx], paletteMode);
-      const o = idx * 4;
-      data[o] = r;
-      data[o + 1] = g;
-      data[o + 2] = b;
-      data[o + 3] = 255;
-    }
+    paintFieldPixels(field, this.imageData.data, paletteMode);
+    this.ctx.putImageData(this.imageData, 0, 0);
+  }
+
+  setPixels(data: Uint8ClampedArray): void {
+    if (data.length !== this.size * this.size * 4) return;
+    this.imageData.data.set(data);
     this.ctx.putImageData(this.imageData, 0, 0);
   }
 }

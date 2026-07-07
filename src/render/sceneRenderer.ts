@@ -1,7 +1,5 @@
-import type { Multiscale } from '../sim/multiscale';
 import { SCALE_FACTOR, type ScaleName } from '../sim/multiscale';
-import type { ParticleSystem } from '../sim/particles';
-import type { PaletteMode } from '../sim/color';
+import type { WorkerFrame } from '../sim/workerTypes';
 import { FieldLayer } from './fieldLayer';
 
 /**
@@ -40,8 +38,6 @@ export function brushScaleForSpan(span: number): ScaleName {
 }
 
 export interface SceneDrawOptions {
-  paletteMode?: PaletteMode;
-  particles?: ParticleSystem | null;
   showParticles?: boolean;
   showTrails?: boolean;
   trailFade?: number;
@@ -52,8 +48,9 @@ export interface SceneDrawOptions {
 const PARTICLE_SUPERSAMPLE = 4;
 
 /**
- * Composites the three scales through the camera with torus wrap tiling
- * and the zoom crossfade, plus the particle layer and brush cursor.
+ * Composites the three scale layers (painted in the sim worker) through
+ * the camera with torus wrap tiling and the zoom crossfade, plus the
+ * particle layer and brush cursor. Pure view: no sim state lives here.
  */
 export class SceneRenderer {
   private readonly visible: HTMLCanvasElement;
@@ -66,19 +63,19 @@ export class SceneRenderer {
   /** world extent = fine grid size */
   private readonly world: number;
 
-  constructor(visible: HTMLCanvasElement, multi: Multiscale) {
+  constructor(visible: HTMLCanvasElement, fineSize: number) {
     this.visible = visible;
     const ctx = visible.getContext('2d');
     if (!ctx) throw new Error('2d context unavailable');
     this.ctx = ctx;
-    this.world = multi.fine.size;
-    this.fineLayer = new FieldLayer(multi.fine.size);
-    this.midLayer = new FieldLayer(multi.mid.size);
-    this.coarseLayer = new FieldLayer(multi.coarse.size);
+    this.world = fineSize;
+    this.fineLayer = new FieldLayer(fineSize);
+    this.midLayer = new FieldLayer(fineSize / SCALE_FACTOR);
+    this.coarseLayer = new FieldLayer(fineSize / (SCALE_FACTOR * SCALE_FACTOR));
 
     this.particleCanvas = document.createElement('canvas');
-    this.particleCanvas.width = multi.fine.size * PARTICLE_SUPERSAMPLE;
-    this.particleCanvas.height = multi.fine.size * PARTICLE_SUPERSAMPLE;
+    this.particleCanvas.width = fineSize * PARTICLE_SUPERSAMPLE;
+    this.particleCanvas.height = fineSize * PARTICLE_SUPERSAMPLE;
     const pctx = this.particleCanvas.getContext('2d');
     if (!pctx) throw new Error('2d context unavailable');
     this.particleCtx = pctx;
@@ -89,15 +86,8 @@ export class SceneRenderer {
     this.visible.height = height;
   }
 
-  draw(multi: Multiscale, camera: Camera, options: SceneDrawOptions = {}): void {
-    const {
-      paletteMode = 'elemental',
-      particles = null,
-      showParticles = true,
-      showTrails = true,
-      trailFade = 0.9,
-      cursor = null,
-    } = options;
+  drawFrame(frame: WorkerFrame, camera: Camera, options: SceneDrawOptions = {}): void {
+    const { showParticles = true, showTrails = true, trailFade = 0.9, cursor = null } = options;
 
     const { width, height } = this.visible;
     const ctx = this.ctx;
@@ -111,20 +101,20 @@ export class SceneRenderer {
 
     // painter's order, coarse under mid under fine; skip fully hidden layers
     if (midAlpha < 1) {
-      this.coarseLayer.update(multi.coarse, paletteMode);
+      this.coarseLayer.setPixels(new Uint8ClampedArray(frame.coarse));
       this.drawTiled(this.coarseLayer.canvas, camera, 1);
     }
     if (fineAlpha < 1 && midAlpha > 0) {
-      this.midLayer.update(multi.mid, paletteMode);
+      this.midLayer.setPixels(new Uint8ClampedArray(frame.mid));
       this.drawTiled(this.midLayer.canvas, camera, midAlpha);
     }
     if (fineAlpha > 0) {
-      this.fineLayer.update(multi.fine, paletteMode);
+      this.fineLayer.setPixels(new Uint8ClampedArray(frame.fine));
       this.drawTiled(this.fineLayer.canvas, camera, fineAlpha);
     }
 
-    if (particles && showParticles && fineAlpha > 0) {
-      this.paintParticles(particles, showTrails, trailFade);
+    if (showParticles && fineAlpha > 0 && frame.particleCount > 0) {
+      this.paintParticles(new Float32Array(frame.particles), frame.particleCount, showTrails, trailFade);
       // motes are fine-scale detail: they fade out with the fine layer
       this.drawTiled(this.particleCanvas, camera, 0.9 * fineAlpha);
     }
@@ -174,7 +164,7 @@ export class SceneRenderer {
     ctx.globalAlpha = 1;
   }
 
-  private paintParticles(particles: ParticleSystem, showTrails: boolean, trailFade: number): void {
+  private paintParticles(xy: Float32Array, count: number, showTrails: boolean, trailFade: number): void {
     const cw = this.particleCanvas.width;
     const ch = this.particleCanvas.height;
     const ctx = this.particleCtx;
@@ -189,9 +179,8 @@ export class SceneRenderer {
     }
 
     ctx.fillStyle = 'rgba(255,255,255,0.4)';
-    const { x, y } = particles;
-    for (let i = 0; i < x.length; i++) {
-      ctx.fillRect(x[i] * PARTICLE_SUPERSAMPLE, y[i] * PARTICLE_SUPERSAMPLE, 1, 1);
+    for (let i = 0; i < count; i++) {
+      ctx.fillRect(xy[i * 2] * PARTICLE_SUPERSAMPLE, xy[i * 2 + 1] * PARTICLE_SUPERSAMPLE, 1, 1);
     }
   }
 }

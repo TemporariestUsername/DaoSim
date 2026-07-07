@@ -23,6 +23,10 @@ This repo currently implements:
   aggregation and downward by a constant bias, so patterns echo across
   scales. Scroll-zoom crossfades the render source fine → mid → coarse, and
   brushes at those zoom levels act on that scale's grid at 4x / 16x cost.
+  The whole simulation (fields, particles, brushes, influence) runs in a
+  Web Worker that paints the RGBA layer buffers and ships them to the main
+  thread as transferables; the main thread only handles input and
+  compositing.
 
 ## Requirements
 

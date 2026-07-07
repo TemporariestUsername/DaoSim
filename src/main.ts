@@ -1,14 +1,12 @@
 import './style.css';
 import { cloneParams, DEFAULT_PARAMS } from './sim/config';
-import { Multiscale, SCALE_FACTOR, type ScaleName } from './sim/multiscale';
+import { SCALE_FACTOR } from './sim/multiscale';
 import { SceneRenderer, brushScaleForSpan, MIN_SPAN, MAX_SPAN, type Camera } from './render/sceneRenderer';
 import { createDevPanel } from './ui/devPanel';
 import { Gallery } from './gallery/gallery';
 import { BUILTIN_PRESETS } from './sim/presets';
-import { ParticleSystem } from './sim/particles';
-import { applyBrush, strokeCost, type BrushStroke } from './sim/brushes';
-import { Influence } from './sim/influence';
 import { createBrushPalette } from './ui/brushPalette';
+import type { MainToWorker, WorkerFrame } from './sim/workerTypes';
 
 const app = document.getElementById('app')!;
 
@@ -17,26 +15,28 @@ canvas.id = 'field';
 app.appendChild(canvas);
 
 const params = cloneParams(DEFAULT_PARAMS);
-let multi = new Multiscale(params.size, params.seed, params);
-let renderer = new SceneRenderer(canvas, multi);
-let particles = new ParticleSystem(params.size, params.particleCount, params.seed);
-
+let renderer = new SceneRenderer(canvas, params.size);
 const camera: Camera = { x: params.size / 2, y: params.size / 2, span: params.size };
 
-function rebuildWorld(): void {
-  multi = new Multiscale(params.size, params.seed, params);
-  renderer = new SceneRenderer(canvas, multi);
-  particles = new ParticleSystem(params.size, params.particleCount, params.seed);
-  camera.x = params.size / 2;
-  camera.y = params.size / 2;
-  camera.span = Math.min(camera.span, MAX_SPAN);
-  resize();
+// --- sim worker ---------------------------------------------------------------
+// The simulation lives entirely in a worker (spec 6): the main thread sends
+// one frame request per rAF (never more than one in flight) with the pointer
+// snapshot, and gets back painted layer buffers to composite.
+const worker = new Worker(new URL('./sim/worker.ts', import.meta.url), { type: 'module' });
+
+function send(msg: MainToWorker, transfer?: Transferable[]): void {
+  worker.postMessage(msg, transfer ?? []);
 }
 
-function syncParticlesIfNeeded() {
-  if (particles.count !== params.particleCount || particles.size !== params.size) {
-    particles = new ParticleSystem(params.size, params.particleCount, params.seed);
-  }
+send({ t: 'init', params });
+
+function rebuildWorld(): void {
+  renderer = new SceneRenderer(canvas, params.size);
+  camera.x = params.size / 2;
+  camera.y = params.size / 2;
+  camera.span = Math.min(Math.max(camera.span, MIN_SPAN), MAX_SPAN);
+  resize();
+  send({ t: 'reset', params });
 }
 
 function resize() {
@@ -109,19 +109,15 @@ app.appendChild(topBar);
 
 // --- dev panel ---------------------------------------------------------------
 const devPanel = createDevPanel(params, {
-  onChange: () => syncParticlesIfNeeded(),
-  onReseed: (seed) => {
-    multi.reseed(seed);
-    particles = new ParticleSystem(params.size, params.particleCount, seed);
-  },
+  onChange: () => send({ t: 'params', params }),
+  onReseed: (seed) => send({ t: 'reseed', seed }),
   onReset: () => rebuildWorld(),
 });
 app.appendChild(devPanel.el);
 
-// --- brushes & influence -----------------------------------------------------
+// --- brushes & influence UI ---------------------------------------------------
 const palette = createBrushPalette();
 app.appendChild(palette.el);
-const influence = new Influence();
 
 // pointer state in world (fine-grid) coordinates
 const pointer = { x: 0, y: 0, over: false, down: false };
@@ -231,51 +227,47 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
-// brushing at mid/coarse zoom acts on that scale's grid, at that scale's cost
-function scaleDivisor(scale: ScaleName): number {
-  return scale === 'fine' ? 1 : scale === 'mid' ? SCALE_FACTOR : SCALE_FACTOR * SCALE_FACTOR;
+// --- frame loop: request from worker, composite reply ------------------------
+let lastTime = performance.now();
+let pendingSimTime = 0;
+let awaitingFrame = false;
+let recycle: ArrayBuffer[] = [];
+
+function requestFrame(): void {
+  awaitingFrame = true;
+  const brushScale = brushScaleForSpan(camera.span);
+  send(
+    {
+      t: 'frame',
+      input: {
+        dtSim: pendingSimTime,
+        paused: paused || galleryOpen,
+        pointerDown: pointer.down,
+        pointerX: pointer.x,
+        pointerY: pointer.y,
+        brush: palette.state.kind,
+        brushRadius: palette.state.radius,
+        brushScale,
+      },
+      recycle,
+    },
+    recycle,
+  );
+  pendingSimTime = 0;
+  recycle = [];
 }
 
-// --- fixed-timestep sim loop, decoupled from render rate --------------------
-let lastTime = performance.now();
-let accumulator = 0;
+worker.onmessage = (e: MessageEvent) => {
+  const frame = e.data as WorkerFrame;
+  if (frame.t !== 'frame') return;
+  awaitingFrame = false;
 
-function frame(time: number) {
-  requestAnimationFrame(frame);
-  const dtReal = Math.min(0.25, (time - lastTime) / 1000);
-  lastTime = time;
-
-  if (!paused && !galleryOpen) {
-    accumulator += dtReal * speed;
-    let steps = 0;
+  if (!galleryOpen && frame.fineSize === params.size) {
     const brushScale = brushScaleForSpan(camera.span);
-    const div = scaleDivisor(brushScale);
-    while (accumulator >= params.dt && steps < 200) {
-      // brush before tick, so the stroke's effect propagates this step
-      const brushing = pointer.down && palette.state.kind !== null;
-      if (brushing && palette.state.kind) {
-        const target = multi.field(brushScale);
-        const stroke: BrushStroke = {
-          kind: palette.state.kind,
-          x: pointer.x / div,
-          y: pointer.y / div,
-          radius: palette.state.radius,
-        };
-        // moving the climate is expensive: costs x4 at mid, x16 at coarse
-        const cost = strokeCost(target, stroke, params, params.dt) * div;
-        if (influence.spend(cost)) applyBrush(target, stroke, params, params.dt);
-      } else {
-        influence.idle(params.dt, params);
-      }
-      multi.tick(params);
-      particles.step(multi.fine, params.particleSpeed, params.dt);
-      accumulator -= params.dt;
-      steps++;
-    }
+    const div = brushScale === 'fine' ? 1 : brushScale === 'mid' ? SCALE_FACTOR : SCALE_FACTOR * SCALE_FACTOR;
     canvas.classList.toggle('brushing', palette.state.kind !== null);
-    palette.setInfluence(influence.value, influence.rampFactor());
-    renderer.draw(multi, camera, {
-      particles,
+    palette.setInfluence(frame.influence, frame.influenceRamp);
+    renderer.drawFrame(frame, camera, {
       showParticles: params.showParticles,
       showTrails: params.showTrails,
       trailFade: params.trailFade,
@@ -285,5 +277,15 @@ function frame(time: number) {
           : null,
     });
   }
+  // hand the buffers back to the worker on the next request
+  recycle = [frame.fine, frame.mid, frame.coarse, frame.particles];
+};
+
+function frame(time: number) {
+  requestAnimationFrame(frame);
+  const dtReal = Math.min(0.25, (time - lastTime) / 1000);
+  lastTime = time;
+  pendingSimTime = Math.min(0.25, pendingSimTime + dtReal * speed);
+  if (!awaitingFrame) requestFrame();
 }
 requestAnimationFrame(frame);
