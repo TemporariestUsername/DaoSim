@@ -2,12 +2,22 @@ import type { Field } from '../sim/field';
 import { cellColor, type PaletteMode } from '../sim/color';
 import type { ParticleSystem } from '../sim/particles';
 
+export interface CursorRing {
+  /** center in fine-grid coordinates */
+  x: number;
+  y: number;
+  /** radius in fine cells */
+  radius: number;
+}
+
 export interface DrawOptions {
   paletteMode?: PaletteMode;
   particles?: ParticleSystem | null;
   showParticles?: boolean;
   showTrails?: boolean;
   trailFade?: number;
+  /** brush footprint indicator; null when observing */
+  cursor?: CursorRing | null;
 }
 
 /**
@@ -60,8 +70,14 @@ export class Renderer {
   }
 
   draw(field: Field, options: DrawOptions = {}): void {
-    const { paletteMode = 'elemental', particles = null, showParticles = true, showTrails = true, trailFade = 0.9 } =
-      options;
+    const {
+      paletteMode = 'elemental',
+      particles = null,
+      showParticles = true,
+      showTrails = true,
+      trailFade = 0.9,
+      cursor = null,
+    } = options;
 
     const n = field.size * field.size;
     const data = this.imageData.data;
@@ -98,6 +114,17 @@ export class Renderer {
         width,
         height,
       );
+    }
+
+    if (cursor) {
+      // grid -> screen: the field is stretched to fill the whole canvas
+      const sx = width / field.size;
+      const sy = height / field.size;
+      this.ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+      this.ctx.lineWidth = 1.5;
+      this.ctx.beginPath();
+      this.ctx.ellipse(cursor.x * sx, cursor.y * sy, cursor.radius * sx, cursor.radius * sy, 0, 0, Math.PI * 2);
+      this.ctx.stroke();
     }
   }
 

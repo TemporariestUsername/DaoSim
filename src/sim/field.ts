@@ -36,6 +36,13 @@ export class Field {
   readonly v: Float32Array;
   /** mean |raw dw| per cell this tick, pre-rate — used by metrics & the M2 oscillator. */
   readonly activity: Float32Array;
+  /**
+   * Local arrest, 0..1, written by the Still brush (spec 3.2): scales the
+   * cell's update rate toward zero so it forms a clot — waves refract and
+   * pile around it — and decays each tick so the clot erodes from its
+   * (lower-valued) edges inward.
+   */
+  readonly stillness: Float32Array;
 
   private readonly nMean: [Float32Array, Float32Array, Float32Array, Float32Array, Float32Array];
   private readonly pMean: Float32Array;
@@ -59,6 +66,7 @@ export class Field {
     this.p = new Float32Array(n);
     this.v = new Float32Array(n);
     this.activity = new Float32Array(n);
+    this.stillness = new Float32Array(n);
     this.nMean = [
       new Float32Array(n),
       new Float32Array(n),
@@ -97,6 +105,7 @@ export class Field {
       this.p[idx] = 0;
       this.v[idx] = 0;
       this.activity[idx] = 0;
+      this.stillness[idx] = 0;
     }
     this.tickCount = 0;
   }
@@ -111,10 +120,12 @@ export class Field {
   }
 
   tick(params: SimParams): void {
-    const { size, alpha, beta, mu, delta, eps, sigma, dt, conserve, gamma, kappa, lambda, eta, aBar } = params;
+    const { size, alpha, beta, mu, delta, eps, sigma, dt, conserve, gamma, kappa, lambda, eta, aBar, stillDecay } =
+      params;
     const offsets = this.neighborOffsets(params.neighborhood);
     const invCount = 1 / offsets.length;
-    const { w, p, v, nMean, pMean, dwRaw, activity, rng } = this;
+    const { w, p, v, nMean, pMean, dwRaw, activity, stillness, rng } = this;
+    const stillKeep = 1 - stillDecay * dt;
     // scratch reused across cells — no per-cell allocation in the hot loop.
     const sums = this.scratchSums;
     const next = this.scratchNext;
@@ -143,7 +154,10 @@ export class Field {
     const n = size * size;
     for (let idx = 0; idx < n; idx++) {
       const p0 = p[idx];
-      const rate = Math.pow(2, p0); // Yang speeds the cell up, Yin slows it down
+      // Yang speeds the cell up, Yin slows it down; a Still-brushed clot
+      // arrests the cell almost entirely while it lasts.
+      const still = stillness[idx];
+      const rate = Math.pow(2, p0) * (1 - still);
       let activitySum = 0;
       for (let k = 0; k < NUM_ELEMENTS; k++) {
         const km1 = (k + 4) % NUM_ELEMENTS;
@@ -181,12 +195,17 @@ export class Field {
       // baseline pushes toward yang, a cubic restoring force makes the
       // extremes unstable, and damping keeps it a relaxation oscillator.
       const dv = (gamma * (a - aBar) + lambda * (pMean[idx] - p0) - kappa * p0 * p0 * p0 - eta * v[idx]) * dt;
-      const v1 = v[idx] + dv;
+      // stillness also freezes the polarity oscillator inside a clot
+      const v1 = (v[idx] + dv) * (1 - still);
       v[idx] = v1;
       let p1 = p0 + v1 * dt;
       if (p1 > 1) p1 = 1;
       else if (p1 < -1) p1 = -1;
       p[idx] = p1;
+
+      // the clot erodes: falloff edges reach zero first, so it shrinks inward
+      const s1 = still * stillKeep;
+      stillness[idx] = s1 < 1e-3 ? 0 : s1;
     }
 
     this.tickCount++;
@@ -206,6 +225,7 @@ export class Field {
       for (let k = 0; k < NUM_ELEMENTS; k++) mix(this.w[k][idx]);
       mix(this.p[idx]);
       mix(this.v[idx]);
+      mix(this.stillness[idx]);
     }
     return (h1 >>> 0).toString(16);
   }

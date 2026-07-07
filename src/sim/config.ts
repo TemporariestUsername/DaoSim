@@ -33,6 +33,16 @@ export interface SimParams {
   trailFade: number;
   showParticles: boolean;
   showTrails: boolean;
+
+  // restraint economy (spec 3)
+  influenceRegen: number; // r: influence per second while still
+  tau: number; // turbulence tax: cost x (1 + tau * local activity)
+  stillDecay: number; // per-second erosion of Still-brush clots
+  brushStrength: number; // how hard brushes push per second at falloff peak
+  costYang: number; // influence per second of use
+  costYin: number;
+  costSeed: number;
+  costStill: number;
 }
 
 export const DEFAULT_PARAMS: SimParams = {
@@ -66,6 +76,15 @@ export const DEFAULT_PARAMS: SimParams = {
   trailFade: 0.9,
   showParticles: true,
   showTrails: true,
+
+  influenceRegen: 4,
+  tau: 8,
+  stillDecay: 0.15,
+  brushStrength: 2.5,
+  costYang: 8,
+  costYin: 8,
+  costSeed: 15,
+  costStill: 25,
 };
 
 export const PARAM_RANGES: Record<
@@ -89,6 +108,14 @@ export const PARAM_RANGES: Record<
   dt: { min: 1 / 120, max: 1 / 10, step: 1 / 120 },
   particleSpeed: { min: 0, max: 30, step: 0.5 },
   trailFade: { min: 0, max: 0.99, step: 0.01 },
+  influenceRegen: { min: 0, max: 20, step: 0.5 },
+  tau: { min: 0, max: 40, step: 0.5 },
+  stillDecay: { min: 0.01, max: 1, step: 0.01 },
+  brushStrength: { min: 0.1, max: 10, step: 0.1 },
+  costYang: { min: 0, max: 60, step: 1 },
+  costYin: { min: 0, max: 60, step: 1 },
+  costSeed: { min: 0, max: 60, step: 1 },
+  costStill: { min: 0, max: 60, step: 1 },
 };
 
 export function cloneParams(p: SimParams): SimParams {

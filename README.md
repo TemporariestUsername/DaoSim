@@ -14,6 +14,10 @@ This repo currently implements:
   reversal principle: sustained Yang overshoots and collapses into Yin, and
   vice versa) coupled to local tempo, plus a flow-visualization layer of
   motes that advect along the direction waves travel, with fading trails.
+- **Milestone 3: Touch** — brushes (Yang, Yin, the five element seeds, and
+  Still, which forms a slowly eroding clot that waves pile around) and the
+  restraint economy: Influence regenerates only while you do nothing, drains
+  while you paint, and costs more in turbulent regions (the turbulence tax).
 
 ## Requirements
 
@@ -40,11 +44,14 @@ Then open the printed local URL (typically `http://localhost:5173`) in a browser
 
 ### Controls
 
+- **Click/drag** — paint with the selected brush (pick one in the left palette;
+  Observe = no brush, influence regenerates)
 - **`~`** — toggle the dev panel (every tunable constant, live-adjustable)
 - **`G`** — toggle Gallery mode (live thumbnails of the sweep's top-scoring presets)
 - **`H`** — hide/show UI chrome
 - **Space** — pause/resume
 - Top bar: pause, speed (0.5x/1x/2x), and a preset dropdown
+- Left palette: brush buttons, radius slider (1-16 cells), and the Influence meter
 
 ## Other scripts
 

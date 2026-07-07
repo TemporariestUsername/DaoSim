@@ -6,6 +6,9 @@ import { createDevPanel } from './ui/devPanel';
 import { Gallery } from './gallery/gallery';
 import { BUILTIN_PRESETS } from './sim/presets';
 import { ParticleSystem } from './sim/particles';
+import { applyBrush, strokeCost, type BrushStroke } from './sim/brushes';
+import { Influence } from './sim/influence';
+import { createBrushPalette } from './ui/brushPalette';
 
 const app = document.getElementById('app')!;
 
@@ -113,6 +116,47 @@ const devPanel = createDevPanel(params, {
 });
 app.appendChild(devPanel.el);
 
+// --- brushes & influence -----------------------------------------------------
+const palette = createBrushPalette();
+app.appendChild(palette.el);
+const influence = new Influence();
+
+// pointer state in fine-grid coordinates
+const pointer = { x: 0, y: 0, over: false, down: false };
+
+function toGrid(e: PointerEvent): { x: number; y: number } {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: ((e.clientX - rect.left) / rect.width) * params.size,
+    y: ((e.clientY - rect.top) / rect.height) * params.size,
+  };
+}
+
+canvas.addEventListener('pointerdown', (e) => {
+  if (e.button !== 0) return;
+  canvas.setPointerCapture(e.pointerId);
+  const g = toGrid(e);
+  pointer.x = g.x;
+  pointer.y = g.y;
+  pointer.down = true;
+});
+canvas.addEventListener('pointermove', (e) => {
+  const g = toGrid(e);
+  pointer.x = g.x;
+  pointer.y = g.y;
+  pointer.over = true;
+});
+canvas.addEventListener('pointerup', () => {
+  pointer.down = false;
+});
+canvas.addEventListener('pointercancel', () => {
+  pointer.down = false;
+});
+canvas.addEventListener('pointerleave', () => {
+  pointer.over = false;
+  pointer.down = false;
+});
+
 // --- gallery ---------------------------------------------------------------
 const gallery = new Gallery(app);
 let galleryOpen = false;
@@ -127,6 +171,7 @@ window.addEventListener('keydown', (e) => {
     else gallery.close();
   } else if (e.key === 'h' || e.key === 'H') {
     topBar.classList.toggle('hidden');
+    palette.el.classList.toggle('hidden');
     document.getElementById('dev-panel')?.classList.add('hidden');
   } else if (e.key === ' ') {
     e.preventDefault();
@@ -148,16 +193,36 @@ function frame(time: number) {
     accumulator += dtReal * speed;
     let steps = 0;
     while (accumulator >= params.dt && steps < 200) {
+      // brush before tick, so the stroke's effect propagates this step
+      const brushing = pointer.down && palette.state.kind !== null;
+      if (brushing && palette.state.kind) {
+        const stroke: BrushStroke = {
+          kind: palette.state.kind,
+          x: pointer.x,
+          y: pointer.y,
+          radius: palette.state.radius,
+        };
+        const cost = strokeCost(field, stroke, params, params.dt);
+        if (influence.spend(cost)) applyBrush(field, stroke, params, params.dt);
+      } else {
+        influence.idle(params.dt, params);
+      }
       field.tick(params);
       particles.step(field, params.particleSpeed, params.dt);
       accumulator -= params.dt;
       steps++;
     }
+    canvas.classList.toggle('brushing', palette.state.kind !== null);
+    palette.setInfluence(influence.value, influence.rampFactor());
     renderer.draw(field, {
       particles,
       showParticles: params.showParticles,
       showTrails: params.showTrails,
       trailFade: params.trailFade,
+      cursor:
+        pointer.over && palette.state.kind !== null
+          ? { x: pointer.x, y: pointer.y, radius: palette.state.radius }
+          : null,
     });
   }
 }
