@@ -34,6 +34,11 @@ export interface SimParams {
   showParticles: boolean;
   showTrails: boolean;
 
+  // fractal structure: three coupled scales (spec 2)
+  upGain: number; // blend of parent toward mean of children, per parent tick
+  downGain: number; // per-tick bias of child element weights toward parent
+  downGainP: number; // per-tick bias of child polarity toward parent
+
   // restraint economy (spec 3)
   influenceRegen: number; // r: influence per second while still
   tau: number; // turbulence tax: cost x (1 + tau * local activity)
@@ -77,6 +82,16 @@ export const DEFAULT_PARAMS: SimParams = {
   showParticles: true,
   showTrails: true,
 
+  // downGain (elements) stays at the spec's suggested 0.05 so fine texture
+  // keeps its own life; downGainP (polarity) is tuned much higher because
+  // the upward mean-pull at upGain 0.3 per mid tick (~1.1/s effective) would
+  // otherwise drown the downward whisper entirely — and a coarse Yin-Yang
+  // reversal dragging the fine weather with it is the whole point of the
+  // fractal layer (spec 2 / milestone 4 acceptance).
+  upGain: 0.3,
+  downGain: 0.05,
+  downGainP: 0.4,
+
   influenceRegen: 4,
   tau: 8,
   stillDecay: 0.15,
@@ -108,6 +123,9 @@ export const PARAM_RANGES: Record<
   dt: { min: 1 / 120, max: 1 / 10, step: 1 / 120 },
   particleSpeed: { min: 0, max: 30, step: 0.5 },
   trailFade: { min: 0, max: 0.99, step: 0.01 },
+  upGain: { min: 0, max: 1, step: 0.01 },
+  downGain: { min: 0, max: 0.5, step: 0.005 },
+  downGainP: { min: 0, max: 1, step: 0.01 },
   influenceRegen: { min: 0, max: 20, step: 0.5 },
   tau: { min: 0, max: 40, step: 0.5 },
   stillDecay: { min: 0.01, max: 1, step: 0.01 },

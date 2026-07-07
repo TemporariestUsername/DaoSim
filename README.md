@@ -18,6 +18,11 @@ This repo currently implements:
   Still, which forms a slowly eroding clot that waves pile around) and the
   restraint economy: Influence regenerates only while you do nothing, drains
   while you paint, and costs more in turbulent regions (the turbulence tax).
+- **Milestone 4: Depth** — three grids running the same rules at different
+  sizes and tempos (128 at 1x, 32 at 1/8x, 8 at 1/64x), coupled upward by
+  aggregation and downward by a constant bias, so patterns echo across
+  scales. Scroll-zoom crossfades the render source fine → mid → coarse, and
+  brushes at those zoom levels act on that scale's grid at 4x / 16x cost.
 
 ## Requirements
 

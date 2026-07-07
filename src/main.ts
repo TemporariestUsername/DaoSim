@@ -1,7 +1,7 @@
 import './style.css';
-import { Field } from './sim/field';
 import { cloneParams, DEFAULT_PARAMS } from './sim/config';
-import { Renderer } from './render/renderer';
+import { Multiscale, SCALE_FACTOR, type ScaleName } from './sim/multiscale';
+import { SceneRenderer, brushScaleForSpan, MIN_SPAN, MAX_SPAN, type Camera } from './render/sceneRenderer';
 import { createDevPanel } from './ui/devPanel';
 import { Gallery } from './gallery/gallery';
 import { BUILTIN_PRESETS } from './sim/presets';
@@ -17,9 +17,21 @@ canvas.id = 'field';
 app.appendChild(canvas);
 
 const params = cloneParams(DEFAULT_PARAMS);
-let field = new Field(params.size, params.seed);
-let renderer = new Renderer(canvas, params.size);
+let multi = new Multiscale(params.size, params.seed, params);
+let renderer = new SceneRenderer(canvas, multi);
 let particles = new ParticleSystem(params.size, params.particleCount, params.seed);
+
+const camera: Camera = { x: params.size / 2, y: params.size / 2, span: params.size };
+
+function rebuildWorld(): void {
+  multi = new Multiscale(params.size, params.seed, params);
+  renderer = new SceneRenderer(canvas, multi);
+  particles = new ParticleSystem(params.size, params.particleCount, params.seed);
+  camera.x = params.size / 2;
+  camera.y = params.size / 2;
+  camera.span = Math.min(camera.span, MAX_SPAN);
+  resize();
+}
 
 function syncParticlesIfNeeded() {
   if (particles.count !== params.particleCount || particles.size !== params.size) {
@@ -78,22 +90,15 @@ for (const preset of BUILTIN_PRESETS) {
 presetSelect.addEventListener('change', () => {
   const preset = BUILTIN_PRESETS.find((p) => p.name === presetSelect.value);
   if (!preset) return;
-  const sizeChanged = preset.params.size !== params.size;
   Object.assign(params, preset.params);
-  if (sizeChanged) {
-    field = new Field(params.size, params.seed);
-    renderer = new Renderer(canvas, params.size);
-    resize();
-  } else {
-    field.reseed(params.seed);
-  }
-  syncParticlesIfNeeded();
+  rebuildWorld();
   devPanel.refresh();
 });
 
 const hint = document.createElement('span');
 hint.className = 'hint';
-hint.textContent = 'Stillness gathers influence; touch spends it. — ~ tune, G gallery, H hide UI';
+hint.textContent =
+  'Stillness gathers influence; touch spends it. — scroll zoom, right-drag pan, ~ tune, G gallery, H hide UI';
 
 topBar.appendChild(speedLabel);
 topBar.appendChild(pauseBtn);
@@ -106,13 +111,10 @@ app.appendChild(topBar);
 const devPanel = createDevPanel(params, {
   onChange: () => syncParticlesIfNeeded(),
   onReseed: (seed) => {
-    field.reseed(seed);
+    multi.reseed(seed);
     particles = new ParticleSystem(params.size, params.particleCount, seed);
   },
-  onReset: () => {
-    field = new Field(params.size, params.seed);
-    particles = new ParticleSystem(params.size, params.particleCount, params.seed);
-  },
+  onReset: () => rebuildWorld(),
 });
 app.appendChild(devPanel.el);
 
@@ -121,41 +123,90 @@ const palette = createBrushPalette();
 app.appendChild(palette.el);
 const influence = new Influence();
 
-// pointer state in fine-grid coordinates
+// pointer state in world (fine-grid) coordinates
 const pointer = { x: 0, y: 0, over: false, down: false };
+const pan = { active: false, lastX: 0, lastY: 0 };
 
-function toGrid(e: PointerEvent): { x: number; y: number } {
+function cssScale(): number {
+  return canvas.getBoundingClientRect().width / camera.span;
+}
+
+function toWorld(clientX: number, clientY: number): { x: number; y: number } {
   const rect = canvas.getBoundingClientRect();
+  const scale = rect.width / camera.span;
+  const spanY = camera.span * (rect.height / rect.width);
   return {
-    x: ((e.clientX - rect.left) / rect.width) * params.size,
-    y: ((e.clientY - rect.top) / rect.height) * params.size,
+    x: camera.x - camera.span / 2 + (clientX - rect.left) / scale,
+    y: camera.y - spanY / 2 + (clientY - rect.top) / scale,
   };
 }
 
+function wrapCamera(): void {
+  const w = params.size;
+  camera.x = ((camera.x % w) + w) % w;
+  camera.y = ((camera.y % w) + w) % w;
+}
+
 canvas.addEventListener('pointerdown', (e) => {
+  if (e.button === 2) {
+    pan.active = true;
+    pan.lastX = e.clientX;
+    pan.lastY = e.clientY;
+    canvas.setPointerCapture(e.pointerId);
+    return;
+  }
   if (e.button !== 0) return;
   canvas.setPointerCapture(e.pointerId);
-  const g = toGrid(e);
+  const g = toWorld(e.clientX, e.clientY);
   pointer.x = g.x;
   pointer.y = g.y;
   pointer.down = true;
 });
 canvas.addEventListener('pointermove', (e) => {
-  const g = toGrid(e);
+  if (pan.active) {
+    const scale = cssScale();
+    camera.x -= (e.clientX - pan.lastX) / scale;
+    camera.y -= (e.clientY - pan.lastY) / scale;
+    pan.lastX = e.clientX;
+    pan.lastY = e.clientY;
+    wrapCamera();
+    return;
+  }
+  const g = toWorld(e.clientX, e.clientY);
   pointer.x = g.x;
   pointer.y = g.y;
   pointer.over = true;
 });
-canvas.addEventListener('pointerup', () => {
-  pointer.down = false;
+canvas.addEventListener('pointerup', (e) => {
+  if (e.button === 2) pan.active = false;
+  else pointer.down = false;
 });
 canvas.addEventListener('pointercancel', () => {
   pointer.down = false;
+  pan.active = false;
 });
 canvas.addEventListener('pointerleave', () => {
   pointer.over = false;
   pointer.down = false;
+  pan.active = false;
 });
+canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+
+canvas.addEventListener(
+  'wheel',
+  (e) => {
+    e.preventDefault();
+    const before = toWorld(e.clientX, e.clientY);
+    const factor = Math.exp(e.deltaY * 0.0012);
+    camera.span = Math.min(MAX_SPAN, Math.max(MIN_SPAN, camera.span * factor));
+    // keep the world point under the cursor fixed while zooming
+    const after = toWorld(e.clientX, e.clientY);
+    camera.x += before.x - after.x;
+    camera.y += before.y - after.y;
+    wrapCamera();
+  },
+  { passive: false },
+);
 
 // --- gallery ---------------------------------------------------------------
 const gallery = new Gallery(app);
@@ -180,6 +231,11 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
+// brushing at mid/coarse zoom acts on that scale's grid, at that scale's cost
+function scaleDivisor(scale: ScaleName): number {
+  return scale === 'fine' ? 1 : scale === 'mid' ? SCALE_FACTOR : SCALE_FACTOR * SCALE_FACTOR;
+}
+
 // --- fixed-timestep sim loop, decoupled from render rate --------------------
 let lastTime = performance.now();
 let accumulator = 0;
@@ -192,36 +248,40 @@ function frame(time: number) {
   if (!paused && !galleryOpen) {
     accumulator += dtReal * speed;
     let steps = 0;
+    const brushScale = brushScaleForSpan(camera.span);
+    const div = scaleDivisor(brushScale);
     while (accumulator >= params.dt && steps < 200) {
       // brush before tick, so the stroke's effect propagates this step
       const brushing = pointer.down && palette.state.kind !== null;
       if (brushing && palette.state.kind) {
+        const target = multi.field(brushScale);
         const stroke: BrushStroke = {
           kind: palette.state.kind,
-          x: pointer.x,
-          y: pointer.y,
+          x: pointer.x / div,
+          y: pointer.y / div,
           radius: palette.state.radius,
         };
-        const cost = strokeCost(field, stroke, params, params.dt);
-        if (influence.spend(cost)) applyBrush(field, stroke, params, params.dt);
+        // moving the climate is expensive: costs x4 at mid, x16 at coarse
+        const cost = strokeCost(target, stroke, params, params.dt) * div;
+        if (influence.spend(cost)) applyBrush(target, stroke, params, params.dt);
       } else {
         influence.idle(params.dt, params);
       }
-      field.tick(params);
-      particles.step(field, params.particleSpeed, params.dt);
+      multi.tick(params);
+      particles.step(multi.fine, params.particleSpeed, params.dt);
       accumulator -= params.dt;
       steps++;
     }
     canvas.classList.toggle('brushing', palette.state.kind !== null);
     palette.setInfluence(influence.value, influence.rampFactor());
-    renderer.draw(field, {
+    renderer.draw(multi, camera, {
       particles,
       showParticles: params.showParticles,
       showTrails: params.showTrails,
       trailFade: params.trailFade,
       cursor:
         pointer.over && palette.state.kind !== null
-          ? { x: pointer.x, y: pointer.y, radius: palette.state.radius }
+          ? { x: pointer.x, y: pointer.y, radius: palette.state.radius * div }
           : null,
     });
   }
