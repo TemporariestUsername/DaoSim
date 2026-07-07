@@ -115,6 +115,15 @@ export class Field {
     this.init();
   }
 
+  /** PRNG internals, exposed for full-state save/load (spec 5). */
+  getRngState(): number {
+    return this.rng.state;
+  }
+
+  setRngState(state: number): void {
+    this.rng.state = state;
+  }
+
   private neighborOffsets(neighborhood: SimParams['neighborhood']) {
     return neighborhood === 'moore' ? MOORE_OFFSETS : VON_NEUMANN_OFFSETS;
   }

@@ -139,6 +139,18 @@ export class SceneRenderer {
     }
   }
 
+  /** Small PNG of the current fine layer, for Field Notes thumbnails. */
+  snapshotFine(px = 96): string {
+    const c = document.createElement('canvas');
+    c.width = px;
+    c.height = px;
+    const cctx = c.getContext('2d');
+    if (!cctx) return '';
+    cctx.imageSmoothingEnabled = true;
+    cctx.drawImage(this.fineLayer.canvas, 0, 0, px, px);
+    return c.toDataURL('image/png');
+  }
+
   /** Draw a full-world layer through the camera, tiling for torus wrap. */
   private drawTiled(source: HTMLCanvasElement, camera: Camera, alpha: number): void {
     const { width, height } = this.visible;

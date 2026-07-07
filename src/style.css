@@ -195,6 +195,77 @@ canvas#field.brushing {
   cursor: crosshair;
 }
 
+.notes-drawer {
+  position: absolute;
+  right: 0.5rem;
+  top: 3rem;
+  bottom: 0.5rem;
+  width: 17rem;
+  overflow-y: auto;
+  background: rgba(10, 10, 16, 0.9);
+  border: 1px solid #2a2a38;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.notes-drawer.hidden {
+  display: none;
+}
+
+.notes-title {
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 0.6rem;
+}
+
+.notes-empty {
+  opacity: 0.45;
+  font-style: italic;
+}
+
+.notes-entry {
+  display: flex;
+  gap: 0.55rem;
+  margin-bottom: 0.7rem;
+  align-items: flex-start;
+}
+
+.notes-entry img {
+  border-radius: 4px;
+  border: 1px solid #2a2a38;
+  flex-shrink: 0;
+}
+
+.notes-entry-name {
+  font-weight: 600;
+}
+
+.notes-entry-desc {
+  opacity: 0.7;
+  margin: 0.15rem 0;
+  line-height: 1.35;
+}
+
+.notes-entry-time {
+  opacity: 0.4;
+  font-size: 0.68rem;
+}
+
+@keyframes notes-flash {
+  0%,
+  100% {
+    background: #181822;
+  }
+  50% {
+    background: #4a4a66;
+  }
+}
+
+button.notes-new {
+  animation: notes-flash 0.8s ease-in-out 3;
+}
+
 .gallery {
   position: absolute;
   inset: 0;

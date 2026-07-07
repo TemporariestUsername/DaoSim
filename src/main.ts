@@ -6,7 +6,9 @@ import { createDevPanel } from './ui/devPanel';
 import { Gallery } from './gallery/gallery';
 import { BUILTIN_PRESETS } from './sim/presets';
 import { createBrushPalette } from './ui/brushPalette';
-import type { MainToWorker, WorkerFrame } from './sim/workerTypes';
+import { createNotesDrawer } from './ui/notesDrawer';
+import { peekParams } from './sim/serialize';
+import type { MainToWorker, WorkerToMain } from './sim/workerTypes';
 
 const app = document.getElementById('app')!;
 
@@ -14,7 +16,42 @@ const canvas = document.createElement('canvas');
 canvas.id = 'field';
 app.appendChild(canvas);
 
+// --- persistence helpers (spec 5) --------------------------------------------
+const AUTOSAVE_KEY = 'daosim.autosave';
+
+function bufToB64(buf: ArrayBuffer): string {
+  const bytes = new Uint8Array(buf);
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 32768) {
+    s += String.fromCharCode(...bytes.subarray(i, Math.min(i + 32768, bytes.length)));
+  }
+  return btoa(s);
+}
+
+function b64ToBuf(b64: string): ArrayBuffer {
+  const s = atob(b64);
+  const bytes = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) bytes[i] = s.charCodeAt(i);
+  return bytes.buffer;
+}
+
+function loadAutosave(): ArrayBuffer | null {
+  try {
+    const raw = localStorage.getItem(AUTOSAVE_KEY);
+    return raw ? b64ToBuf(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
 const params = cloneParams(DEFAULT_PARAMS);
+// resume the previous session's world if one was auto-saved
+const savedState = loadAutosave();
+if (savedState) {
+  const saved = peekParams(savedState);
+  if (saved) Object.assign(params, saved);
+}
+
 let renderer = new SceneRenderer(canvas, params.size);
 const camera: Camera = { x: params.size / 2, y: params.size / 2, span: params.size };
 
@@ -29,6 +66,7 @@ function send(msg: MainToWorker, transfer?: Transferable[]): void {
 }
 
 send({ t: 'init', params });
+if (savedState) send({ t: 'load', state: savedState }, [savedState]);
 
 function rebuildWorld(): void {
   renderer = new SceneRenderer(canvas, params.size);
@@ -36,6 +74,12 @@ function rebuildWorld(): void {
   camera.y = params.size / 2;
   camera.span = Math.min(Math.max(camera.span, MIN_SPAN), MAX_SPAN);
   resize();
+  // a deliberate reset shouldn't be undone by reloading into the old autosave
+  try {
+    localStorage.removeItem(AUTOSAVE_KEY);
+  } catch {
+    /* storage unavailable */
+  }
   send({ t: 'reset', params });
 }
 
@@ -95,6 +139,62 @@ presetSelect.addEventListener('change', () => {
   devPanel.refresh();
 });
 
+// --- field notes journal (spec 3.3) -------------------------------------------
+const notes = createNotesDrawer();
+app.appendChild(notes.el);
+notes.button.addEventListener('click', () => notes.toggle());
+
+// --- snapshot / export / import (spec 5) ---------------------------------------
+function download(name: string, blob: Blob): void {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+
+const snapshotBtn = document.createElement('button');
+snapshotBtn.textContent = 'PNG';
+snapshotBtn.addEventListener('click', () => {
+  canvas.toBlob((blob) => {
+    if (blob) download(`daosim-${Date.now()}.png`, blob);
+  });
+});
+
+let exportRequested = false;
+const exportBtn = document.createElement('button');
+exportBtn.textContent = 'Export';
+exportBtn.addEventListener('click', () => {
+  exportRequested = true;
+  send({ t: 'save' });
+});
+
+const importInput = document.createElement('input');
+importInput.type = 'file';
+importInput.accept = '.daosim,.bin';
+importInput.style.display = 'none';
+importInput.addEventListener('change', async () => {
+  const file = importInput.files?.[0];
+  importInput.value = '';
+  if (!file) return;
+  const state = await file.arrayBuffer();
+  const saved = peekParams(state);
+  if (!saved) return;
+  const sizeChanged = saved.size !== params.size;
+  Object.assign(params, saved);
+  if (sizeChanged) {
+    renderer = new SceneRenderer(canvas, params.size);
+    camera.x = params.size / 2;
+    camera.y = params.size / 2;
+    resize();
+  }
+  devPanel.refresh();
+  send({ t: 'load', state }, [state]);
+});
+const importBtn = document.createElement('button');
+importBtn.textContent = 'Import';
+importBtn.addEventListener('click', () => importInput.click());
+
 const hint = document.createElement('span');
 hint.className = 'hint';
 hint.textContent =
@@ -104,6 +204,11 @@ topBar.appendChild(speedLabel);
 topBar.appendChild(pauseBtn);
 topBar.appendChild(speedBtn);
 topBar.appendChild(presetSelect);
+topBar.appendChild(notes.button);
+topBar.appendChild(snapshotBtn);
+topBar.appendChild(exportBtn);
+topBar.appendChild(importBtn);
+topBar.appendChild(importInput);
 topBar.appendChild(hint);
 app.appendChild(topBar);
 
@@ -219,6 +324,7 @@ window.addEventListener('keydown', (e) => {
   } else if (e.key === 'h' || e.key === 'H') {
     topBar.classList.toggle('hidden');
     palette.el.classList.toggle('hidden');
+    notes.el.classList.add('hidden');
     document.getElementById('dev-panel')?.classList.add('hidden');
   } else if (e.key === ' ') {
     e.preventDefault();
@@ -258,8 +364,24 @@ function requestFrame(): void {
 }
 
 worker.onmessage = (e: MessageEvent) => {
-  const frame = e.data as WorkerFrame;
-  if (frame.t !== 'frame') return;
+  const msg = e.data as WorkerToMain;
+
+  if (msg.t === 'state') {
+    // every state reply refreshes the autosave; Export also downloads it
+    try {
+      localStorage.setItem(AUTOSAVE_KEY, bufToB64(msg.state));
+    } catch {
+      /* storage unavailable (or full) — autosave skipped */
+    }
+    if (exportRequested) {
+      exportRequested = false;
+      download(`daosim-${Date.now()}.daosim`, new Blob([msg.state], { type: 'application/octet-stream' }));
+    }
+    return;
+  }
+
+  if (msg.t !== 'frame') return;
+  const frame = msg;
   awaitingFrame = false;
 
   if (!galleryOpen && frame.fineSize === params.size) {
@@ -276,10 +398,23 @@ worker.onmessage = (e: MessageEvent) => {
           ? { x: pointer.x, y: pointer.y, radius: palette.state.radius * div }
           : null,
     });
+    // journal any regimes first observed this frame, with a thumbnail of
+    // the field as it looked at the moment of observation
+    for (const detection of frame.notes) {
+      if (!notes.has(detection.id)) notes.record(detection, renderer.snapshotFine());
+    }
   }
   // hand the buffers back to the worker on the next request
   recycle = [frame.fine, frame.mid, frame.coarse, frame.particles];
 };
+
+// --- auto-save (spec 5): every 15 s and when the tab goes hidden --------------
+setInterval(() => {
+  if (!paused) send({ t: 'save' });
+}, 15000);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') send({ t: 'save' });
+});
 
 function frame(time: number) {
   requestAnimationFrame(frame);

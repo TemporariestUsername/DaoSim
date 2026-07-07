@@ -1,6 +1,7 @@
 import type { SimParams } from './config';
 import type { BrushKind } from './brushes';
 import type { ScaleName } from './multiscale';
+import type { Detection } from './fieldNotes';
 
 /** Pointer/brush snapshot the main thread sends with each frame request. */
 export interface FrameInput {
@@ -21,6 +22,8 @@ export type MainToWorker =
   | { t: 'reset'; params: SimParams }
   | { t: 'params'; params: SimParams }
   | { t: 'reseed'; seed: number }
+  | { t: 'save' }
+  | { t: 'load'; state: ArrayBuffer }
   | {
       t: 'frame';
       input: FrameInput;
@@ -42,4 +45,13 @@ export interface WorkerFrame {
   particleCount: number;
   influence: number;
   influenceRamp: number;
+  /** regimes first observed during this frame's ticks (spec 3.3) */
+  notes: Detection[];
 }
+
+export interface WorkerState {
+  t: 'state';
+  state: ArrayBuffer;
+}
+
+export type WorkerToMain = WorkerFrame | WorkerState;

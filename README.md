@@ -27,6 +27,12 @@ This repo currently implements:
   Web Worker that paints the RGBA layer buffers and ships them to the main
   thread as transferables; the main thread only handles input and
   compositing.
+- **Milestone 5: Memory** — Field Notes, a naturalist's journal that
+  passively logs emergent regimes the first time they occur (spiral weave,
+  element blooms, eddies, clots, deep breaths, cascades) with a timestamped
+  thumbnail; auto-save to localStorage with resume on reload; full-state
+  export/import (a self-contained binary that preserves the exact PRNG
+  stream); and PNG snapshots.
 
 ## Requirements
 
@@ -59,7 +65,8 @@ Then open the printed local URL (typically `http://localhost:5173`) in a browser
 - **`G`** — toggle Gallery mode (live thumbnails of the sweep's top-scoring presets)
 - **`H`** — hide/show UI chrome
 - **Space** — pause/resume
-- Top bar: pause, speed (0.5x/1x/2x), and a preset dropdown
+- Top bar: pause, speed (0.5x/1x/2x), preset dropdown, Field Notes journal,
+  PNG snapshot, and export/import of the full sim state
 - Left palette: brush buttons, radius slider (1-16 cells), and the Influence meter
 
 ## Other scripts

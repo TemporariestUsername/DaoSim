@@ -8,9 +8,11 @@ import { ParticleSystem } from './particles';
 import { Influence } from './influence';
 import { applyBrush, strokeCost, type BrushStroke } from './brushes';
 import { paintFieldPixels } from '../render/paintField';
-import type { MainToWorker, WorkerFrame, FrameInput } from './workerTypes';
+import { RegimeDetector, SAMPLE_EVERY, type Detection } from './fieldNotes';
+import { deserializeState, peekParams, serializeState } from './serialize';
+import type { MainToWorker, WorkerToMain, FrameInput } from './workerTypes';
 
-const post = (msg: WorkerFrame, transfer: Transferable[]) =>
+const post = (msg: WorkerToMain, transfer: Transferable[]) =>
   (self as unknown as { postMessage: (m: unknown, t?: Transferable[]) => void }).postMessage(msg, transfer);
 
 let params: SimParams | null = null;
@@ -18,12 +20,16 @@ let multi: Multiscale | null = null;
 let particles: ParticleSystem | null = null;
 let influence = new Influence();
 let accumulator = 0;
+const detector = new RegimeDetector();
+let pendingNotes: Detection[] = [];
 
 function rebuild(): void {
   if (!params) return;
   multi = new Multiscale(params.size, params.seed, params);
   particles = new ParticleSystem(params.size, params.particleCount, params.seed);
   accumulator = 0;
+  detector.reset();
+  pendingNotes = [];
 }
 
 function scaleDivisor(scale: FrameInput['brushScale']): number {
@@ -54,6 +60,9 @@ function step(input: FrameInput): void {
     }
     multi.tick(params);
     particles.step(multi.fine, params.particleSpeed, params.dt);
+    if (multi.fine.tickCount % SAMPLE_EVERY === 0) {
+      pendingNotes.push(...detector.sample(multi, params));
+    }
     accumulator -= params.dt;
     steps++;
   }
@@ -100,6 +109,7 @@ function reply(recycle: ArrayBuffer[]): void {
       particleCount: count,
       influence: influence.value,
       influenceRamp: influence.rampFactor(),
+      notes: pendingNotes.splice(0),
     },
     [fine, mid, coarse, pbuf],
   );
@@ -132,6 +142,23 @@ self.onmessage = (e: MessageEvent) => {
       particles = new ParticleSystem(params.size, params.particleCount, msg.seed);
       break;
     }
+    case 'save': {
+      if (!params || !multi) break;
+      const state = serializeState(multi, params, influence.value, influence.streak);
+      post({ t: 'state', state }, [state]);
+      break;
+    }
+    case 'load': {
+      // the binary is self-contained: params live in its header
+      const { peeked, ok } = tryLoad(msg.state);
+      if (!ok && peeked) {
+        // sizes mismatched current world — rebuild to the saved size and retry
+        params = peeked;
+        rebuild();
+        tryLoad(msg.state);
+      }
+      break;
+    }
     case 'frame': {
       step(msg.input);
       reply(msg.recycle ?? []);
@@ -139,3 +166,22 @@ self.onmessage = (e: MessageEvent) => {
     }
   }
 };
+
+function tryLoad(state: ArrayBuffer): { peeked: SimParams | null; ok: boolean } {
+  if (!multi) return { peeked: null, ok: false };
+  const restored = deserializeState(state, multi);
+  if (!restored) {
+    // peek params so the caller can rebuild at the right size
+    return { peeked: peekParams(state), ok: false };
+  }
+  params = restored.params;
+  influence = new Influence();
+  influence.value = restored.influence;
+  influence.streak = restored.influenceStreak;
+  accumulator = 0;
+  detector.reset();
+  if (particles && (particles.size !== params.size || particles.count !== params.particleCount)) {
+    particles = new ParticleSystem(params.size, params.particleCount, params.seed);
+  }
+  return { peeked: params, ok: true };
+}

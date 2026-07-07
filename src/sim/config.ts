@@ -94,7 +94,10 @@ export const DEFAULT_PARAMS: SimParams = {
 
   influenceRegen: 4,
   tau: 8,
-  stillDecay: 0.15,
+  // slow enough that a fully-charged Still stroke leaves a clot that outlives
+  // the stroke by ~15-20 s — long enough to watch waves bend around it (and
+  // for Field Notes to recognize it) before it erodes
+  stillDecay: 0.08,
   brushStrength: 2.5,
   costYang: 8,
   costYin: 8,
