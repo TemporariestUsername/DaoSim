@@ -84,9 +84,9 @@ function reply(recycle: ArrayBuffer[]): void {
   const fine = takeBuffer(recycle, fineSize * fineSize * 4);
   const mid = takeBuffer(recycle, midSize * midSize * 4);
   const coarse = takeBuffer(recycle, coarseSize * coarseSize * 4);
-  paintFieldPixels(multi.fine, new Uint8ClampedArray(fine));
-  paintFieldPixels(multi.mid, new Uint8ClampedArray(mid));
-  paintFieldPixels(multi.coarse, new Uint8ClampedArray(coarse));
+  paintFieldPixels(multi.fine, new Uint8ClampedArray(fine), params.palette);
+  paintFieldPixels(multi.mid, new Uint8ClampedArray(mid), params.palette);
+  paintFieldPixels(multi.coarse, new Uint8ClampedArray(coarse), params.palette);
 
   const count = particles.count;
   const pbuf = takeBuffer(recycle, count * 2 * 4);
@@ -95,6 +95,17 @@ function reply(recycle: ArrayBuffer[]): void {
     pxy[i * 2] = particles.x[i];
     pxy[i * 2 + 1] = particles.y[i];
   }
+
+  // global element shares + mean polarity, for the sound layer (spec 4)
+  const n = fineSize * fineSize;
+  const shares = [0, 0, 0, 0, 0];
+  let meanP = 0;
+  for (let idx = 0; idx < n; idx++) {
+    for (let k = 0; k < 5; k++) shares[k] += multi.fine.w[k][idx];
+    meanP += multi.fine.p[idx];
+  }
+  for (let k = 0; k < 5; k++) shares[k] /= n;
+  meanP /= n;
 
   post(
     {
@@ -110,6 +121,8 @@ function reply(recycle: ArrayBuffer[]): void {
       influence: influence.value,
       influenceRamp: influence.rampFactor(),
       notes: pendingNotes.splice(0),
+      shares,
+      meanP,
     },
     [fine, mid, coarse, pbuf],
   );

@@ -7,6 +7,8 @@ import { Gallery } from './gallery/gallery';
 import { BUILTIN_PRESETS } from './sim/presets';
 import { createBrushPalette } from './ui/brushPalette';
 import { createNotesDrawer } from './ui/notesDrawer';
+import { createLegend } from './ui/legend';
+import { SoundEngine } from './ui/sound';
 import { peekParams } from './sim/serialize';
 import type { MainToWorker, WorkerToMain } from './sim/workerTypes';
 
@@ -195,10 +197,18 @@ const importBtn = document.createElement('button');
 importBtn.textContent = 'Import';
 importBtn.addEventListener('click', () => importInput.click());
 
+// --- sound (spec 4, stretch): off by default, toggled by button ---------------
+const sound = new SoundEngine();
+const soundBtn = document.createElement('button');
+soundBtn.textContent = 'Sound: off';
+soundBtn.addEventListener('click', () => {
+  soundBtn.textContent = sound.toggle() ? 'Sound: on' : 'Sound: off';
+});
+
 const hint = document.createElement('span');
 hint.className = 'hint';
 hint.textContent =
-  'Stillness gathers influence; touch spends it. — scroll zoom, right-drag pan, ~ tune, G gallery, H hide UI';
+  'Stillness gathers influence; touch spends it. — scroll zoom, right-drag pan, ~ tune, G gallery, M meditate, H hide UI';
 
 topBar.appendChild(speedLabel);
 topBar.appendChild(pauseBtn);
@@ -209,8 +219,13 @@ topBar.appendChild(snapshotBtn);
 topBar.appendChild(exportBtn);
 topBar.appendChild(importBtn);
 topBar.appendChild(importInput);
+topBar.appendChild(soundBtn);
 topBar.appendChild(hint);
 app.appendChild(topBar);
+
+// --- pentagon legend (spec 4) --------------------------------------------------
+const legend = createLegend();
+app.appendChild(legend);
 
 // --- dev panel ---------------------------------------------------------------
 const devPanel = createDevPanel(params, {
@@ -249,6 +264,10 @@ function wrapCamera(): void {
 }
 
 canvas.addEventListener('pointerdown', (e) => {
+  if (meditating) {
+    exitMeditation();
+    return;
+  }
   if (e.button === 2) {
     pan.active = true;
     pan.lastX = e.clientX;
@@ -313,8 +332,38 @@ canvas.addEventListener(
 const gallery = new Gallery(app);
 let galleryOpen = false;
 
+// --- zen chrome toggle + meditation mode (spec 4 / stretch) -------------------
+let chromeVisible = true;
+let meditating = false;
+
+function setChromeVisible(v: boolean): void {
+  chromeVisible = v;
+  topBar.classList.toggle('hidden', !v);
+  palette.el.classList.toggle('hidden', !v);
+  legend.classList.toggle('hidden', !v);
+  if (!v) {
+    notes.el.classList.add('hidden');
+    document.getElementById('dev-panel')?.classList.add('hidden');
+  }
+}
+
+function exitMeditation(): void {
+  if (!meditating) return;
+  meditating = false;
+  setChromeVisible(true);
+}
+
 // --- input ---------------------------------------------------------------
 window.addEventListener('keydown', (e) => {
+  if (e.key === 'm' || e.key === 'M') {
+    meditating = !meditating;
+    setChromeVisible(!meditating);
+    return;
+  }
+  if (meditating) {
+    exitMeditation();
+    return;
+  }
   if (e.key === '~' || e.key === '`') {
     devPanel.toggle();
   } else if (e.key === 'g' || e.key === 'G') {
@@ -322,10 +371,7 @@ window.addEventListener('keydown', (e) => {
     if (galleryOpen) gallery.open();
     else gallery.close();
   } else if (e.key === 'h' || e.key === 'H') {
-    topBar.classList.toggle('hidden');
-    palette.el.classList.toggle('hidden');
-    notes.el.classList.add('hidden');
-    document.getElementById('dev-panel')?.classList.add('hidden');
+    setChromeVisible(!chromeVisible);
   } else if (e.key === ' ') {
     e.preventDefault();
     paused = !paused;
@@ -403,6 +449,7 @@ worker.onmessage = (e: MessageEvent) => {
     for (const detection of frame.notes) {
       if (!notes.has(detection.id)) notes.record(detection, renderer.snapshotFine());
     }
+    sound.update(frame.shares, frame.meanP);
   }
   // hand the buffers back to the worker on the next request
   recycle = [frame.fine, frame.mid, frame.coarse, frame.particles];
@@ -421,6 +468,17 @@ function frame(time: number) {
   const dtReal = Math.min(0.25, (time - lastTime) / 1000);
   lastTime = time;
   pendingSimTime = Math.min(0.25, pendingSimTime + dtReal * speed);
+
+  if (meditating) {
+    // slow lissajous drift with a gentle breathing zoom
+    const t = time / 1000;
+    camera.x += Math.sin(t * 0.11) * 1.6 * dtReal;
+    camera.y += Math.cos(t * 0.073) * 1.6 * dtReal;
+    const targetSpan = 96 + 28 * Math.sin(t * 0.031);
+    camera.span += (targetSpan - camera.span) * Math.min(1, dtReal * 0.5);
+    wrapCamera();
+  }
+
   if (!awaitingFrame) requestFrame();
 }
 requestAnimationFrame(frame);

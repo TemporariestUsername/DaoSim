@@ -64,10 +64,14 @@ Then open the printed local URL (typically `http://localhost:5173`) in a browser
 - **`~`** — toggle the dev panel (every tunable constant, live-adjustable)
 - **`G`** — toggle Gallery mode (live thumbnails of the sweep's top-scoring presets)
 - **`H`** — hide/show UI chrome
+- **`M`** — meditation mode: UI hidden, slow auto-drifting camera; any click or key exits
 - **Space** — pause/resume
 - Top bar: pause, speed (0.5x/1x/2x), preset dropdown, Field Notes journal,
-  PNG snapshot, and export/import of the full sim state
+  PNG snapshot, export/import of the full sim state, and the sound toggle
+  (five just-intoned tones following the element shares; off by default)
 - Left palette: brush buttons, radius slider (1-16 cells), and the Influence meter
+- Bottom right: the pentagon legend — generation arrows around the rim,
+  overcoming arrows across the star; click to collapse
 
 ## Other scripts
 

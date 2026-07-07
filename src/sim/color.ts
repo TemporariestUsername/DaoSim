@@ -11,6 +11,13 @@ const EVEN_SPACED_HUES = [0, 72, 144, 216, 288]; // fallback if blended hues mud
 // Metal reads pale/silvery: lower chroma ceiling regardless of concentration.
 const CHROMA_SCALE = [1, 1, 1, 0.45, 1];
 
+// Per-element OKLCH lightness offsets, applied in proportion to element
+// concentration. A deuteranopia projection of the raw palette left
+// Fire-Earth and Wood/Earth-Metal nearly identical; these nudges keep every
+// pair separable in luminance so hue is never the sole channel (spec 4).
+// Mixed cells (low concentration) stay purely polarity-driven in lightness.
+const LIGHTNESS_OFFSET = [0.04, 0.04, -0.06, 0.1, -0.03];
+
 const BASE_CHROMA = 0.16;
 const YIN_LIGHTNESS = 0.25;
 const YANG_LIGHTNESS = 0.8;
@@ -70,7 +77,8 @@ export function cellColor(
   const hue = (Math.atan2(cy, cx) * 180) / Math.PI;
   const concentration = Math.max(0, Math.min(1, (maxW - 1 / NUM_ELEMENTS) / (1 - 1 / NUM_ELEMENTS)));
   const chroma = BASE_CHROMA * concentration * CHROMA_SCALE[maxK];
-  const lightness = YIN_LIGHTNESS + ((p + 1) / 2) * (YANG_LIGHTNESS - YIN_LIGHTNESS);
+  const lightness =
+    YIN_LIGHTNESS + ((p + 1) / 2) * (YANG_LIGHTNESS - YIN_LIGHTNESS) + LIGHTNESS_OFFSET[maxK] * concentration;
   return oklchToSrgb(lightness, chroma, hue);
 }
 

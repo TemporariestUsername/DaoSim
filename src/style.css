@@ -195,6 +195,33 @@ canvas#field.brushing {
   cursor: crosshair;
 }
 
+.legend {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  opacity: 0.75;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s;
+}
+
+.legend:hover {
+  opacity: 1;
+}
+
+.legend.hidden {
+  display: none;
+}
+
+.legend.collapsed svg {
+  width: 44px;
+  height: 44px;
+}
+
+.legend.collapsed text {
+  display: none;
+}
+
 .notes-drawer {
   position: absolute;
   right: 0.5rem;

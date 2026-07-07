@@ -113,6 +113,31 @@ export function createDevPanel(
     particleCountInput.value = String(params.particleCount);
   });
 
+  // palette (elemental hues, or the evenly-spaced fallback from spec 4)
+  const paletteRow = document.createElement('label');
+  paletteRow.className = 'dev-row';
+  const paletteName = document.createElement('span');
+  paletteName.className = 'dev-row-name';
+  paletteName.textContent = 'palette';
+  const paletteSelect = document.createElement('select');
+  for (const v of ['elemental', 'evenSpaced']) {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    paletteSelect.appendChild(opt);
+  }
+  paletteSelect.value = params.palette;
+  paletteSelect.addEventListener('change', () => {
+    params.palette = paletteSelect.value as SimParams['palette'];
+    callbacks.onChange();
+  });
+  paletteRow.appendChild(paletteName);
+  paletteRow.appendChild(paletteSelect);
+  el.appendChild(paletteRow);
+  rows.push(() => {
+    paletteSelect.value = params.palette;
+  });
+
   // conserve flag
   const conserveRow = document.createElement('label');
   conserveRow.className = 'dev-row';

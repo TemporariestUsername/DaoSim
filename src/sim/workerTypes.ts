@@ -47,6 +47,10 @@ export interface WorkerFrame {
   influenceRamp: number;
   /** regimes first observed during this frame's ticks (spec 3.3) */
   notes: Detection[];
+  /** global element shares of the fine field (sound layer, spec 4) */
+  shares: number[];
+  /** global mean polarity (sound filter cutoff) */
+  meanP: number;
 }
 
 export interface WorkerState {

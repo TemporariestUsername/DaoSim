@@ -3,6 +3,7 @@
 
 export type Conserve = 'simplex' | 'unbounded';
 export type Neighborhood = 'vonNeumann' | 'moore';
+export type Palette = 'elemental' | 'evenSpaced';
 
 export interface SimParams {
   size: number; // grid is size x size, torus wraparound
@@ -26,6 +27,9 @@ export interface SimParams {
   conserve: Conserve;
   neighborhood: Neighborhood;
   seed: number;
+
+  // presentation (spec 4)
+  palette: Palette;
 
   // flow-visualization layer (spec 4)
   particleCount: number;
@@ -76,6 +80,8 @@ export const DEFAULT_PARAMS: SimParams = {
   neighborhood: 'vonNeumann',
   seed: 1,
 
+  palette: 'elemental',
+
   particleCount: 3000,
   particleSpeed: 6,
   trailFade: 0.9,
@@ -108,7 +114,7 @@ export const DEFAULT_PARAMS: SimParams = {
 export const PARAM_RANGES: Record<
   keyof Omit<
     SimParams,
-    'conserve' | 'neighborhood' | 'seed' | 'size' | 'showParticles' | 'showTrails' | 'particleCount'
+    'conserve' | 'neighborhood' | 'seed' | 'size' | 'showParticles' | 'showTrails' | 'particleCount' | 'palette'
   >,
   { min: number; max: number; step: number }
 > = {
